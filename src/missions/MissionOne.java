@@ -1,3 +1,7 @@
+package missions;
+
+import drone.DroneConnection;
+
 public class MissionOne extends Mission {
 
 	/**

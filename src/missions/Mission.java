@@ -1,7 +1,21 @@
+package missions;
+
+import drone.DroneConnection;
+import flight.FlightBehavior;
+
 public abstract class Mission {
 
 	private FlightBehavior[] flightPath;
 	private int missionNumber;
+
+	/**
+	 *
+	 * @param missionNumber
+	 */
+	public Mission(int missionNumber) {
+		// TODO - implement Mission.Mission
+		throw new UnsupportedOperationException();
+	}
 
 	/**
 	 * 
@@ -16,13 +30,6 @@ public abstract class Mission {
 		return this.missionNumber;
 	}
 
-	/**
-	 * 
-	 * @param missionNumber
-	 */
-	public Mission(int missionNumber) {
-		// TODO - implement Mission.Mission
-		throw new UnsupportedOperationException();
-	}
+
 
 }
