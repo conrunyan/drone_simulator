@@ -8,14 +8,6 @@ public abstract class Mission {
 	private FlightBehavior[] flightPath;
 	private int missionNumber;
 
-	/**
-	 *
-	 * @param missionNumber
-	 */
-	public Mission(int missionNumber) {
-		// TODO - implement Mission.Mission
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
