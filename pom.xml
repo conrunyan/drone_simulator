@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cs5700_hw1_connor_runyan</groupId>
-    <artifactId>hw_1_proj</artifactId>
+    <groupId>edu.usu.cs5700.hw1-connor-runyan</groupId>
+    <artifactId>cs5700_hw1</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+
 </project>

@@ -1,4 +1,4 @@
-package main.java.menu;
+package menu;
 
 public class MenuSetIPAddress extends MenuItem {
 }

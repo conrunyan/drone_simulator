@@ -1,13 +1,9 @@
-package main.java.missions;
+package missions;
 
-import main.java.drone.DroneConnection;
+import drone.DroneConnection;
 
 public class MissionOne extends Mission {
 
-	/**
-	 * 
-	 * @param droneConnection
-	 */
 	public void executeMission(DroneConnection droneConnection) {
 		// TODO - implement MissionOne.executeMission
 		throw new UnsupportedOperationException();

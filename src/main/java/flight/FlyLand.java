@@ -1,4 +1,4 @@
-package main.java.flight;
+package flight;
 
 public class FlyLand implements FlightBehavior {
 

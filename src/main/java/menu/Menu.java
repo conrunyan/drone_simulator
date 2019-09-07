@@ -1,6 +1,6 @@
-package main.java.menu;
+package menu;
 
-import main.java.drone.*;
+import drone.*;
 
 
 public class Menu {
@@ -11,7 +11,6 @@ public class Menu {
 
 	/**
 	 * Constructor to load drone into menu, and create new command menu items.
-	 * @param drone
 	 */
 	public Menu(Drone drone, DroneConnection droneConnection) {
 		// TODO - implement Menu.Menu
@@ -37,10 +36,6 @@ public class Menu {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param menuItemID
-	 */
 	public void executeMenuItem(int menuItemID) {
 		// TODO - implement Menu.executeMenuItem
 		throw new UnsupportedOperationException();

@@ -1,7 +1,7 @@
-package main.java.drone;
+package drone;
 
 import java.net.*;
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 
 public class DroneConnection {
 
@@ -44,8 +44,7 @@ public class DroneConnection {
 		// check if user has input an IP address
 		if (connectionIP.equals("N/A")) {
 			System.out.println("User has not input an IP address. Using default '192.168.10.1'");
-			InetAddress defaultIP = InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1});
-			return defaultIP;
+			return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1});
 		}
 
 		return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1}); // temporary

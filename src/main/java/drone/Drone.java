@@ -1,6 +1,6 @@
-package main.java.drone;
+package drone;
 
-import main.java.missions.*;
+import missions.*;
 
 public class Drone {
 
@@ -17,10 +17,6 @@ public class Drone {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param missionID
-	 */
 	public void flyMission(int missionID) {
 		// TODO - implement drone.DronePilot.flyMission
 		throw new UnsupportedOperationException();

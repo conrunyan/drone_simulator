@@ -1,18 +1,13 @@
-package main.java.missions;
+package missions;
 
-import main.java.drone.DroneConnection;
-import main.java.flight.FlightBehavior;
+import drone.DroneConnection;
+import flight.FlightBehavior;
 
 public abstract class Mission {
 
 	private FlightBehavior[] flightPath;
 	private int missionNumber;
 
-
-	/**
-	 * 
-	 * @param droneConnection
-	 */
 	public void executeMission(DroneConnection droneConnection) {
 		// TODO - implement Mission.executeMission
 		throw new UnsupportedOperationException();
