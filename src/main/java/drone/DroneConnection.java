@@ -39,15 +39,16 @@ public class DroneConnection {
 		this.connectionIP = connectionIP;
 	}
 
-	// class private methods
-	private InetAddress parseIPAddress() throws UnknownHostException {
+
+	InetAddress parseIPAddress() throws UnknownHostException {
 		// check if user has input an IP address
 		if (connectionIP.equals("N/A")) {
 			System.out.println("User has not input an IP address. Using default '192.168.10.1'");
 			return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1});
 		}
 
-		return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1}); // temporary
+		byte[] byteIPAddress = splitIP(this.connectionIP);
+		return InetAddress.getByAddress(byteIPAddress);
 	}
 
 	byte[] splitIP(String ipAddress) {
