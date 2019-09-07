@@ -1,7 +1,6 @@
-package menu;
+package main.java.menu;
 
-import drone.Drone;
-import drone.DroneConnection;
+import main.java.drone.*;
 
 
 public class Menu {

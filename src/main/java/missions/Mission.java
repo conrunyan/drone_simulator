@@ -1,7 +1,7 @@
-package missions;
+package main.java.missions;
 
-import drone.DroneConnection;
-import flight.FlightBehavior;
+import main.java.drone.DroneConnection;
+import main.java.flight.FlightBehavior;
 
 public abstract class Mission {
 

@@ -1,4 +1,4 @@
-package flight;
+package main.java.flight;
 
 public interface FlightBehavior {
 

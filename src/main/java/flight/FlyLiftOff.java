@@ -1,14 +1,14 @@
-package flight;
+package main.java.flight;
 
-public class FlyRight implements FlightBehavior {
+public class FlyLiftOff implements FlightBehavior {
 
 	public String flyInDirection() {
-		// TODO - implement FlyRight.flyInDirection
+		// TODO - implement FlyLiftOff.flyInDirection
 		throw new UnsupportedOperationException();
 	}
 
 	public void displayBehaviorName() {
-		// TODO - implement FlyRight.flyInDirection
+		// TODO - implement FlyLiftOff.flyInDirection
 		throw new UnsupportedOperationException();
 	}
 

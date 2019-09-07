@@ -1,6 +1,6 @@
-package missions;
+package main.java.missions;
 
-import drone.DroneConnection;
+import main.java.drone.DroneConnection;
 
 public class MissionThree extends Mission {
 

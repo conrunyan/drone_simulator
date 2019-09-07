@@ -1,6 +1,6 @@
-package drone;
+package main.java.drone;
 
-import missions.*;
+import main.java.missions.*;
 
 public class Drone {
 

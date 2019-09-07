@@ -1,4 +1,4 @@
-package menu;
+package main.java.menu;
 
 public abstract class MenuItem {
 
