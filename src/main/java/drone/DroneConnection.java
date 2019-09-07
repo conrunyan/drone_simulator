@@ -50,9 +50,9 @@ public class DroneConnection {
 		return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1}); // temporary
 	}
 
-	private byte[] splitIP(String ipAddress) {
+	byte[] splitIP(String ipAddress) {
 		// assumes that user has entered a valid ip address (per Dr. Clyde, we did not need to validate user input for this one)
-		String[] ipAddrElements = ipAddress.split(".");
+		String[] ipAddrElements = ipAddress.split("\\.");
 		byte[] newIpAddr = new byte[ipAddrElements.length];
 
 		for (int i = 0; i < newIpAddr.length; i++) {
