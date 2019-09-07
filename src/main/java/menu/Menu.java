@@ -22,8 +22,8 @@ public class Menu {
 	public void displayMenu() {
 		// TODO - implement Menu.displayMenu
 		System.out.println("Drone Menu:");
-		System.out.println("Current IP Address: " + this.droneConnect.getConnectionIP());
-		System.out.println("Current Port: " + this.droneConnect.getConnectionPort());
+		System.out.println("Current IP Address: " + this.droneConnect.getInputConnectionIP());
+		System.out.println("Current Port: " + this.droneConnect.getInputConnectionPort());
 		System.out.println("1 - Set IP Address");
 		System.out.println("Drone Menu:");
 		System.out.println("Drone Menu:");

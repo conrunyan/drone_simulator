@@ -1,53 +1,106 @@
 package drone;
 
 import java.net.*;
-//import java.nio.charset.StandardCharsets;
+import java.nio.charset.StandardCharsets;
 
 public class DroneConnection {
 
 	// Class attributes
-	private String connectionPort = "N/A";
-	private String connectionIP = "N/A";
+	private String inputConnectionPort;
+	private String inputConnectionIP;
+	private int connectionPort;
+	private InetAddress connectionIP;
 	private Boolean connectionStatus;
-//	private DatagramSocket connection = new DatagramSocket();
+	private DatagramSocket udpClient;
+	final private int MAX_NUM_OF_RETRIES = 3;
+
+	public DroneConnection() throws Exception{
+		inputConnectionPort = "N/A";
+		inputConnectionIP = "N/A";
+		udpClient = new DatagramSocket();
+		udpClient.setSoTimeout(1000);
+	}
 
 	// class public methods
-	public void sendMessage(String message) {
-		// TODO - implement drone.DroneConnection.sendMessage
-		throw new UnsupportedOperationException();
+	public void communicateWithDrone(String message) throws Exception{
+
+		// sends message, then waits for a return
+		int tries = 0;
+		String reply;
+		while (tries < this.MAX_NUM_OF_RETRIES) {
+			sendMessage(message);
+			reply = listenForMessage();
+
+			if (reply != null && reply.equals("ok")) {
+				break;
+			}
+			tries++;
+		}
 	}
 
-	public String listenForMessage() {
-		// TODO - implement drone.DroneConnection.listenForMessage
-		throw new UnsupportedOperationException();
+	public void sendMessage(String message) throws Exception{
+
+		byte[] bytesToSend;
+		DatagramPacket datagramPacket;
+
+
+		bytesToSend = message.getBytes(StandardCharsets.UTF_8);
+		datagramPacket = new DatagramPacket(bytesToSend, bytesToSend.length, this.connectionIP, this.connectionPort);
+		udpClient.send(datagramPacket);
+		System.out.println("Sent " + message + " message to " + this.connectionIP.toString() + ":" + this.connectionPort);
 	}
 
-	public void connectToDrone() {
+	public String listenForMessage() throws Exception{
 
+		byte[] bytesReceived;
+		DatagramPacket datagramPacket;
+		String reply = null;
+
+		bytesReceived = new byte[64];
+		datagramPacket = new DatagramPacket(bytesReceived, 64);
+
+		try {
+			udpClient.receive(datagramPacket);
+		}
+		catch (SocketTimeoutException ex) {
+			datagramPacket = null;
+		}
+		if (datagramPacket != null) {
+			System.out.println(String.format("Received %d bytes", datagramPacket.getLength()));
+			reply = new String(bytesReceived, 0, datagramPacket.getLength(), StandardCharsets.UTF_8);
+			System.out.println("Messaged received: " + reply);
+		}
+		return reply;
 	}
 
-	public String getConnectionPort() {
-		return this.connectionPort;
+	public void connectToDrone() throws Exception{
+		String connectMessage = "command";
+		communicateWithDrone(connectMessage);
+		System.out.println("Connecting to drone....");
 	}
-	public String getConnectionIP() {
-		return this.connectionIP;
+
+	public String getInputConnectionPort() {
+		return this.inputConnectionPort;
 	}
-	public void setConnectionPort(String connectionPort) {
-		this.connectionPort = connectionPort;
+	public String getInputConnectionIP() {
+		return this.inputConnectionIP;
 	}
-	public void setConnectionIP(String connectionIP) {
-		this.connectionIP = connectionIP;
+	public void setInputConnectionPort(String inputConnectionPort) {
+		this.inputConnectionPort = inputConnectionPort;
+	}
+	public void setInputConnectionIP(String inputConnectionIP) {
+		this.inputConnectionIP = inputConnectionIP;
 	}
 
 
 	InetAddress parseIPAddress() throws UnknownHostException {
 		// check if user has input an IP address
-		if (connectionIP.equals("N/A")) {
+		if (inputConnectionIP.equals("N/A")) {
 			System.out.println("User has not input an IP address. Using default '192.168.10.1'");
 			return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1});
 		}
 
-		byte[] byteIPAddress = splitIP(this.connectionIP);
+		byte[] byteIPAddress = splitIP(this.inputConnectionIP);
 		return InetAddress.getByAddress(byteIPAddress);
 	}
 
