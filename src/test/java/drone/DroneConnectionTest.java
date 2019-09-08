@@ -67,11 +67,19 @@ public class DroneConnectionTest {
         testDrone.setInputConnectionIP(userInputIP);
         testDrone.setInputConnectionPort(userInputPort);
 
-        testDrone.connectToDrone();
-
+        // live connection
+        testDrone.sendMessage("command");
+        String result = testDrone.listenForMessage();
         testDrone.communicateWithDrone("KILL");
 
+        assertEquals(result, "ok");
 
+        // dead connection
+
+        testDrone.sendMessage("command");
+        String result2 = testDrone.listenForMessage();
+
+        assertEquals(result2, null);
     }
 
 }
