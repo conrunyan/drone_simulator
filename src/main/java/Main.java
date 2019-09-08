@@ -1,25 +1,25 @@
-import drone.DroneConnection;
+import drone.Drone;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        DroneConnection testDrone = new DroneConnection();
+        Drone testDrone = new Drone();
         String udpServerCmd = "python ./udp_server/udp_server.py";
         Runtime.getRuntime().exec(udpServerCmd);
 
         String userInputIP = "127.0.0.1";
         String userInputPort = "8889";
 
-        testDrone.setInputConnectionIP(userInputIP);
-        testDrone.setInputConnectionPort(userInputPort);
-        testDrone.connectToDrone();
+        testDrone.setDroneIP(userInputIP);
+        testDrone.setDronePort(userInputPort);
+        testDrone.startConnection();
 
-        Scanner input = new Scanner(System.in);
-        String userIn = input.nextLine();
-        // Testing basic manual input with drone simulator
-        while (!userIn.equals("STOP")) {
-            testDrone.sendMessage(userIn);
-            userIn = input.nextLine();
-        }
+//        Scanner input = new Scanner(System.in);
+//        String userIn = input.nextLine();
+//        // Testing basic manual input with drone simulator
+//        while (!userIn.equals("STOP")) {
+//            testDrone.sendMessage(userIn);
+//            userIn = input.nextLine();
+//        }
     }
 }
