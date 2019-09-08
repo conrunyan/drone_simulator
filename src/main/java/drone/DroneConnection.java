@@ -75,8 +75,8 @@ public class DroneConnection {
 
 	public void connectToDrone() throws Exception{
 		String connectMessage = "command";
-		communicateWithDrone(connectMessage);
 		System.out.println("Connecting to drone....");
+		communicateWithDrone(connectMessage);
 	}
 
 	public String getInputConnectionPort() {
@@ -85,11 +85,18 @@ public class DroneConnection {
 	public String getInputConnectionIP() {
 		return this.inputConnectionIP;
 	}
+	public int getConnectionPort() { return connectionPort;	}
+	public InetAddress getConnectionIP() {
+		return connectionIP;
+	}
+
 	public void setInputConnectionPort(String inputConnectionPort) {
 		this.inputConnectionPort = inputConnectionPort;
+		this.connectionPort = Integer.parseInt(inputConnectionPort);
 	}
-	public void setInputConnectionIP(String inputConnectionIP) {
+	public void setInputConnectionIP(String inputConnectionIP) throws Exception {
 		this.inputConnectionIP = inputConnectionIP;
+		this.connectionIP = parseIPAddress();
 	}
 
 
