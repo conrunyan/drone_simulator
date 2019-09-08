@@ -3,13 +3,12 @@ package flight;
 public class FlyLand implements FlightBehavior {
 
 	public String flyInDirection() {
-		// TODO - implement FlyLand.flyInDirection
-		throw new UnsupportedOperationException();
+		// flies backwards 100 cm
+		return "land";
 	}
 
 	public void displayBehaviorName() {
-		// TODO - implement FlyLand.flyInDirection
-		throw new UnsupportedOperationException();
+		System.out.println("Automatically lands the drone.");
 	}
 
 }

@@ -3,13 +3,12 @@ package flight;
 public class FlyLiftOff implements FlightBehavior {
 
 	public String flyInDirection() {
-		// TODO - implement FlyLiftOff.flyInDirection
-		throw new UnsupportedOperationException();
+		// drone takes off
+		return "takeoff";
 	}
 
 	public void displayBehaviorName() {
-		// TODO - implement FlyLiftOff.flyInDirection
-		throw new UnsupportedOperationException();
+		System.out.println("Drone takes off from current location.");
 	}
 
 }
