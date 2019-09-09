@@ -16,21 +16,15 @@ public class Drone {
 		this.missThree = new MissionThree();
 	}
 
-	public void setDroneIP(String ipAddr) throws Exception{
-		this.connection.setInputConnectionIP(ipAddr);
-	}
-
-	public void setDronePort(String port) {
-		this.connection.setInputConnectionPort(port);
-	}
-
-	public void startConnection() throws Exception{
+	public boolean startConnection() throws Exception{
 		// make sure an IP address and Port have been set
 		if (this.connection.getInputConnectionIP().equals("N/A") || this.connection.getInputConnectionPort().equals("N/A")) {
 			System.out.printf("IP Address or Port have not been set. Current values: IP %s Port: %s", connection.getInputConnectionIP(), connection.getInputConnectionPort());
-			return;
+			return false;
 		}
+
 		this.connection.connectToDrone();
+		return this.connection.getConnectionStatus();
 	}
 
 	public void flyMission(int missionID) throws Exception {
@@ -55,6 +49,19 @@ public class Drone {
 
 	public boolean getConnectionStatus() {
 		return this.connection.getConnectionStatus();
+	}
+	public String getDroneIP() {
+		return this.connection.getInputConnectionIP();
+	}
+	public String getDronePort() {
+		return this.connection.getInputConnectionPort();
+	}
+
+	public void setDroneIP(String ipAddr) throws Exception{
+		this.connection.setInputConnectionIP(ipAddr);
+	}
+	public void setDronePort(String port) {
+		this.connection.setInputConnectionPort(port);
 	}
 
 }
