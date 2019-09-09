@@ -58,7 +58,7 @@ public class DroneConnectionTest {
     @Test
     public void testDroneConnectionInitialConnection() throws Exception{
         DroneConnection testDrone = new DroneConnection();
-        String udpServerCmd = "python ./udp_server/udp_server.py";
+        String udpServerCmd = "python ./udp_server/udp_server.py 5005";
         Runtime.getRuntime().exec(udpServerCmd);
 
         String userInputIP = "127.0.0.1";
@@ -75,11 +75,42 @@ public class DroneConnectionTest {
         assertEquals(result, "ok");
 
         // dead connection
-
-        testDrone.sendMessage("command");
+        testDrone.sendMessage("takeoff");
         String result2 = testDrone.listenForMessage();
 
-        assertEquals(result2, null);
+        assertNull(result2);
+    }
+
+    @Test
+    public void testDroneConnectionDontSendCommandsUntilConnected() throws Exception{
+        DroneConnection testDrone = new DroneConnection();
+        String udpServerCmd = "python ./udp_server/udp_server.py 30000";
+        Runtime.getRuntime().exec(udpServerCmd);
+
+        String userInputIP = "127.0.0.1";
+        String userInputPort = "30000";
+
+        testDrone.setInputConnectionIP(userInputIP);
+        testDrone.setInputConnectionPort(userInputPort);
+
+        // try to send a message. result should be null, as it's not connected yet
+        testDrone.sendMessage("takeoff");
+        String result = testDrone.listenForMessage();
+
+        assertNull(result);
+
+        // "command" message should work
+        testDrone.sendMessage("command");
+        String result2 = testDrone.listenForMessage();
+        assertEquals(result2, "ok");
+
+        // "takeoff" command should now work
+        testDrone.sendMessage("takeoff");
+        String result3 = testDrone.listenForMessage();
+        assertEquals(result3, "ok");
+
+        // kill drone server
+        testDrone.sendMessage("KILL");
     }
 
 }

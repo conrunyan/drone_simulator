@@ -1,13 +1,14 @@
 from __future__ import print_function
 
 import socket
+import sys
 
 """Basic UDP server found on python wiki: https://wiki.python.org/moin/UdpCommunication#Receiving"""
 
 def main():
 
     UDP_IP = "127.0.0.1"
-    UDP_PORT = 5005
+    UDP_PORT = int(sys.argv[1])
 
     sock = socket.socket(socket.AF_INET, # Internet
                          socket.SOCK_DGRAM) # UDP
@@ -31,6 +32,7 @@ def isMessageValid(message):
         b'left',
         b'right',
         b'KILL',
+        b'takeoff',
     ]
 
     if message in valid_message:

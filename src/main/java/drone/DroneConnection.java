@@ -57,7 +57,7 @@ public class DroneConnection {
 		bytesToSend = message.getBytes(StandardCharsets.UTF_8);
 		datagramPacket = new DatagramPacket(bytesToSend, bytesToSend.length, this.connectionIP, this.connectionPort);
 		udpClient.send(datagramPacket);
-		System.out.println("Sent " + message + " message to " + this.connectionIP.toString() + ":" + this.connectionPort);
+//		System.out.println("Sent " + message + " message to " + this.connectionIP.toString() + ":" + this.connectionPort);
 	}
 
 	public String listenForMessage() throws Exception{
@@ -76,9 +76,9 @@ public class DroneConnection {
 			datagramPacket = null;
 		}
 		if (datagramPacket != null) {
-			System.out.println(String.format("Received %d bytes", datagramPacket.getLength()));
+//			System.out.println(String.format("Received %d bytes", datagramPacket.getLength()));
 			reply = new String(bytesReceived, 0, datagramPacket.getLength(), StandardCharsets.UTF_8);
-			System.out.println("Messaged received: " + reply);
+//			System.out.println("Messaged received: " + reply);
 		}
 		return reply;
 	}
