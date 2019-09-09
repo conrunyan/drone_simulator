@@ -3,13 +3,12 @@ package flight;
 public class FlyRight implements FlightBehavior {
 
 	public String flyInDirection() {
-		// TODO - implement FlyRight.flyInDirection
-		throw new UnsupportedOperationException();
+		// flies backwards 100 cm
+		return "right 100";
 	}
 
 	public void displayBehaviorName() {
-		// TODO - implement FlyRight.flyInDirection
-		throw new UnsupportedOperationException();
+		System.out.println("Flies right 100 cm");
 	}
 
 }

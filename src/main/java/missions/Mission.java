@@ -8,7 +8,7 @@ public abstract class Mission {
 	private FlightBehavior[] flightPath;
 	private int missionNumber;
 
-	public void executeMission(DroneConnection droneConnection) {
+	public void executeMission(DroneConnection droneConnection) throws Exception{
 		// TODO - implement Mission.executeMission
 		throw new UnsupportedOperationException();
 	}

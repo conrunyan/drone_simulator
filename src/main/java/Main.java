@@ -13,6 +13,7 @@ public class Main {
         testDrone.setDroneIP(userInputIP);
         testDrone.setDronePort(userInputPort);
         testDrone.startConnection();
+        testDrone.flyMission(1);
 
 //        Scanner input = new Scanner(System.in);
 //        String userIn = input.nextLine();

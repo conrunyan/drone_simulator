@@ -33,9 +33,24 @@ public class Drone {
 		this.connection.connectToDrone();
 	}
 
-	public void flyMission(int missionID) {
-		// TODO - implement drone.DronePilot.flyMission
-		throw new UnsupportedOperationException();
+	public void flyMission(int missionID) throws Exception {
+		switch (missionID) {
+			case 1 : {
+				this.missOne.executeMission(this.connection);
+				break;
+			}
+			case 2 : {
+				this.missTwo.executeMission(this.connection);
+				break;
+			}
+			case 3 : {
+				this.missThree.executeMission(this.connection);
+				break;
+			}
+			default : {
+				throw new Exception("WARNING: " + missionID + " is not a valid mission.");
+			}
+		}
 	}
 
 	public void endFlight() {
