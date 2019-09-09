@@ -53,9 +53,8 @@ public class Drone {
 		}
 	}
 
-	public void endFlight() {
-		// TODO - implement drone.DronePilot.endFlight
-		throw new UnsupportedOperationException();
+	public boolean getConnectionStatus() {
+		return this.connection.getConnectionStatus();
 	}
 
 }

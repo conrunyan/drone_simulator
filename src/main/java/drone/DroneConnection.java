@@ -10,13 +10,14 @@ public class DroneConnection {
 	private String inputConnectionIP;
 	private int connectionPort;
 	private InetAddress connectionIP;
-	private Boolean connectionStatus;
+	private Boolean isConnected;
 	private DatagramSocket udpClient;
 	final private int MAX_NUM_OF_RETRIES = 3;
 
 	public DroneConnection() throws Exception{
 		inputConnectionPort = "N/A";
 		inputConnectionIP = "N/A";
+		isConnected = false;
 		udpClient = new DatagramSocket();
 		udpClient.setSoTimeout(1000);
 	}
@@ -27,14 +28,23 @@ public class DroneConnection {
 		// sends message, then waits for a return
 		int tries = 0;
 		String reply;
-		while (tries < this.MAX_NUM_OF_RETRIES) {
-			sendMessage(message);
-			reply = listenForMessage();
+		// can't send messages unless the drone is connected
+		if (isConnected || message.equals("command")) {
+			while (tries < this.MAX_NUM_OF_RETRIES) {
+				sendMessage(message);
+				reply = listenForMessage();
 
-			if (reply != null && reply.equals("ok")) {
-				break;
+				if (reply != null && reply.equals("ok")) {
+					if (message == "command") {
+						this.isConnected = true;
+					}
+					break;
+				}
+				tries++;
 			}
-			tries++;
+		}
+		else {
+			System.out.println("ERROR: Cannot send drone command " + message + " until drone is in command mode");
 		}
 	}
 
@@ -88,6 +98,9 @@ public class DroneConnection {
 	public int getConnectionPort() { return connectionPort;	}
 	public InetAddress getConnectionIP() {
 		return connectionIP;
+	}
+	public boolean getConnectionStatus() {
+		return isConnected;
 	}
 
 	public void setInputConnectionPort(String inputConnectionPort) {
