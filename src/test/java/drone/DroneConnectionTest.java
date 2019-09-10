@@ -97,6 +97,7 @@ public class DroneConnectionTest {
 
         // try to send a message. result should be null, as it's not connected yet
         String result = testDrone.communicateWithDrone("takeoff");
+//        testDrone.connectToDrone();
         assertFalse(testDrone.getConnectionStatus());
         assertNull(result);
 

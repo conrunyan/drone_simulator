@@ -35,7 +35,7 @@ public class DroneConnection {
 				reply = listenForMessage();
 
 				if (reply != null && reply.equals("ok")) {
-					if (message == "command") {
+					if (message.equals("command")) {
 						this.isConnected = true;
 					}
 					break;

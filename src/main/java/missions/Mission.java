@@ -9,8 +9,6 @@ public abstract class Mission {
 	private int missionNumber;
 
 	public void executeMission(DroneConnection droneConnection) throws Exception{
-		// TODO - implement Mission.executeMission
-		throw new UnsupportedOperationException();
 	}
 
 	public int getMissionNumber() {
