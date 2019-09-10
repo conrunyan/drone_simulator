@@ -14,6 +14,8 @@ public class DroneConnectionTest {
 
         String userInputIP = "192.168.10.1";
         String userInputPort = "9000";
+        InetAddress realIP = InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1});
+        int realPort = 9000;
 
         // check default getters
         assertEquals("Failed default getter - IP", "N/A", testDrone.getInputConnectionIP());
@@ -24,6 +26,8 @@ public class DroneConnectionTest {
 
         assertEquals("Failed setter - IP", userInputIP, testDrone.getInputConnectionIP());
         assertEquals("Failed setter - Port", userInputPort, testDrone.getInputConnectionPort());
+        assertEquals(realIP, testDrone.getConnectionIP());
+        assertEquals(realPort, testDrone.getConnectionPort());
 
     }
 
@@ -93,12 +97,14 @@ public class DroneConnectionTest {
 
         // try to send a message. result should be null, as it's not connected yet
         String result = testDrone.communicateWithDrone("takeoff");
-
+        assertFalse(testDrone.getConnectionStatus());
         assertNull(result);
 
         // "command" message should work
+        testDrone.connectToDrone();
         String result2 = testDrone.communicateWithDrone("command");
         assertEquals(result2, "ok");
+        assertTrue(testDrone.getConnectionStatus());
 
         // "takeoff" command should now work
         String result3 = testDrone.communicateWithDrone("takeoff");
