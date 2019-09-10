@@ -19,7 +19,7 @@ public class Drone {
 	public boolean startConnection() throws Exception{
 		// make sure an IP address and Port have been set
 		if (this.connection.getInputConnectionIP().equals("N/A") || this.connection.getInputConnectionPort().equals("N/A")) {
-			System.out.printf("IP Address or Port have not been set. Current values: IP %s Port: %s", connection.getInputConnectionIP(), connection.getInputConnectionPort());
+			System.out.printf("IP Address or Port have not been set. Current values: IP %s Port: %s\n", connection.getInputConnectionIP(), connection.getInputConnectionPort());
 			return false;
 		}
 
@@ -28,6 +28,7 @@ public class Drone {
 	}
 
 	public void flyMission(int missionID) throws Exception {
+		System.out.println("Executing mission: " + missionID);
 		switch (missionID) {
 			case 1 : {
 				this.missOne.executeMission(this.connection);
@@ -42,7 +43,7 @@ public class Drone {
 				break;
 			}
 			default : {
-				throw new Exception("WARNING: " + missionID + " is not a valid mission.");
+				System.out.println("WARNING: '" + missionID + "' is not a valid mission.");
 			}
 		}
 	}

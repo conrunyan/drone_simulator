@@ -88,6 +88,13 @@ public class DroneConnection {
 		String connectMessage = "command";
 		System.out.println("Connecting to drone....");
 		communicateWithDrone(connectMessage);
+		if (this.isConnected) {
+			System.out.println("Successfully connected to drone!");
+		}
+		else {
+			System.out.println("Oops, couldn't establish drone connection. Make sure you're on the Drone's WiFi.\n" +
+					"Also check your IP address, and port to make sure they're correct.");
+		}
 	}
 
 	public String getInputConnectionPort() {

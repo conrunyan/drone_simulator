@@ -27,6 +27,7 @@ public class MissionTwo extends Mission {
 
 	public void executeMission(DroneConnection droneConnection) throws Exception{
 		for (FlightBehavior fb : this.flightBehaviors) {
+			System.out.println("\tExecuting flight pattern: " + fb.flyInDirection());
 			droneConnection.communicateWithDrone(fb.flyInDirection());
 			Thread.sleep(2000);
 		}
