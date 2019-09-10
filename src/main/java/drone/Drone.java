@@ -28,23 +28,29 @@ public class Drone {
 	}
 
 	public void flyMission(int missionID) throws Exception {
-		System.out.println("Executing mission: " + missionID);
-		switch (missionID) {
-			case 1 : {
-				this.missOne.executeMission(this.connection);
-				break;
+		// can't execute mission unless drone is connected
+		if (getConnectionStatus()) {
+			System.out.println("Executing mission: " + missionID);
+			switch (missionID) {
+				case 1 : {
+					this.missOne.executeMission(this.connection);
+					break;
+				}
+				case 2 : {
+					this.missTwo.executeMission(this.connection);
+					break;
+				}
+				case 3 : {
+					this.missThree.executeMission(this.connection);
+					break;
+				}
+				default : {
+					System.out.println("WARNING: '" + missionID + "' is not a valid mission.");
+				}
 			}
-			case 2 : {
-				this.missTwo.executeMission(this.connection);
-				break;
-			}
-			case 3 : {
-				this.missThree.executeMission(this.connection);
-				break;
-			}
-			default : {
-				System.out.println("WARNING: '" + missionID + "' is not a valid mission.");
-			}
+		}
+		else {
+			System.out.println("ERROR: Drone is not connected. Please connect before flying mission.");
 		}
 	}
 
