@@ -23,11 +23,11 @@ public class DroneConnection {
 	}
 
 	// class public methods
-	public void communicateWithDrone(String message) throws Exception{
+	public String communicateWithDrone(String message) throws Exception{
 
 		// sends message, then waits for a return
 		int tries = 0;
-		String reply;
+		String reply = null;
 		// can't send messages unless the drone is connected
 		if (isConnected || message.equals("command")) {
 			while (tries < this.MAX_NUM_OF_RETRIES) {
@@ -46,6 +46,7 @@ public class DroneConnection {
 		else {
 			System.out.println("ERROR: Cannot send drone command " + message + " until drone is in command mode");
 		}
+		return reply;
 	}
 
 	public void sendMessage(String message) throws Exception{

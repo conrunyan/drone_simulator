@@ -3,6 +3,7 @@ package drone;
 import java.net.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import utils.UdpTestServer;
 
 
 public class DroneConnectionTest {
@@ -58,8 +59,8 @@ public class DroneConnectionTest {
     @Test
     public void testDroneConnectionInitialConnection() throws Exception{
         DroneConnection testDrone = new DroneConnection();
-        String udpServerCmd = "python ./udp_server/udp_server.py 5005";
-        Runtime.getRuntime().exec(udpServerCmd);
+        UdpTestServer serv = new UdpTestServer("5005");
+        serv.runServer();
 
         String userInputIP = "127.0.0.1";
         String userInputPort = "5005";
@@ -68,24 +69,21 @@ public class DroneConnectionTest {
         testDrone.setInputConnectionPort(userInputPort);
 
         // live connection
-        testDrone.sendMessage("command");
-        String result = testDrone.listenForMessage();
-        testDrone.communicateWithDrone("KILL");
+        String result = testDrone.communicateWithDrone("command");
+        serv.killServer();
 
         assertEquals(result, "ok");
 
         // dead connection
-        testDrone.sendMessage("takeoff");
-        String result2 = testDrone.listenForMessage();
-
+        String result2 = testDrone.communicateWithDrone("takeoff");
         assertNull(result2);
     }
 
     @Test
     public void testDroneConnectionDontSendCommandsUntilConnected() throws Exception{
         DroneConnection testDrone = new DroneConnection();
-        String udpServerCmd = "python ./udp_server/udp_server.py 30000";
-        Runtime.getRuntime().exec(udpServerCmd);
+        UdpTestServer serv = new UdpTestServer("30000");
+        serv.runServer();
 
         String userInputIP = "127.0.0.1";
         String userInputPort = "30000";
@@ -94,23 +92,20 @@ public class DroneConnectionTest {
         testDrone.setInputConnectionPort(userInputPort);
 
         // try to send a message. result should be null, as it's not connected yet
-        testDrone.sendMessage("takeoff");
-        String result = testDrone.listenForMessage();
+        String result = testDrone.communicateWithDrone("takeoff");
 
         assertNull(result);
 
         // "command" message should work
-        testDrone.sendMessage("command");
-        String result2 = testDrone.listenForMessage();
+        String result2 = testDrone.communicateWithDrone("command");
         assertEquals(result2, "ok");
 
         // "takeoff" command should now work
-        testDrone.sendMessage("takeoff");
-        String result3 = testDrone.listenForMessage();
+        String result3 = testDrone.communicateWithDrone("takeoff");
         assertEquals(result3, "ok");
 
         // kill drone server
-        testDrone.sendMessage("KILL");
+        serv.killServer();
     }
 
 }
