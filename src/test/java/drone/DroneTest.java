@@ -42,8 +42,6 @@ public class DroneTest {
         testDrone.startConnection();
 
         testDrone.flyMission(1);
-        testDrone.flyMission(2);
-        testDrone.flyMission(3);
         testDrone.flyMission(4);
 
         serv.killServer();

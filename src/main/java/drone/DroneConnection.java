@@ -49,7 +49,7 @@ public class DroneConnection {
 		return reply;
 	}
 
-	public void sendMessage(String message) throws Exception{
+	private void sendMessage(String message) throws Exception{
 
 		byte[] bytesToSend;
 		DatagramPacket datagramPacket;
@@ -61,7 +61,7 @@ public class DroneConnection {
 //		System.out.println("Sent " + message + " message to " + this.connectionIP.toString() + ":" + this.connectionPort);
 	}
 
-	public String listenForMessage() throws Exception{
+	private String listenForMessage() throws Exception{
 
 		byte[] bytesReceived;
 		DatagramPacket datagramPacket;
