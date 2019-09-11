@@ -15,7 +15,6 @@ public class Menu {
 	 * Constructor to load drone into menu, and create new command menu items.
 	 */
 	public Menu(Drone drone) {
-		// TODO - implement Menu.Menu
 		this.drone = drone;
 		this.userInput = new Scanner(System.in);
 		this.runMenu = true;
@@ -27,7 +26,7 @@ public class Menu {
 		executeMenuItem(input);
 	}
 
-	public void displayMenu() {
+	private void displayMenu() {
 		System.out.println("Drone Menu:");
 		System.out.println("Current IP Address: " + this.drone.getDroneIP());
 		System.out.println("Current Port: " + this.drone.getDronePort());
@@ -40,7 +39,7 @@ public class Menu {
 		System.out.println("7 - Exit");
 	}
 
-	public int getUserInput() {
+	private int getUserInput() {
 		int menuItem = 0;
 		String input = null;
 		System.out.println("Please enter an option: ");
@@ -55,7 +54,7 @@ public class Menu {
 
 	}
 
-	public void executeMenuItem(int menuItemID) throws Exception{
+	private void executeMenuItem(int menuItemID) throws Exception{
 		switch (menuItemID) {
 			case 1 : {
 				System.out.println("Please enter IP address: ");
