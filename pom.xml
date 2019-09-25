@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.usu.cs5700.hw1-connor-runyan</groupId>
+    <groupId>con.runyan</groupId>
     <artifactId>cs5700_hw1</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -22,7 +22,8 @@
         </plugins>
     </build>
     <modules>
-        <module>drone_connection</module>
+        <module>connection</module>
+        <module>simulator</module>
     </modules>
 
     <properties>
