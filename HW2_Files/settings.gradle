@@ -1,5 +1,0 @@
-rootProject.name = 'HW2_Drone'
-include ':drone_connection'
-include ':drone_flyer'
-include ':drone_simulator'
-

@@ -6,6 +6,7 @@
 
     <groupId>edu.usu.cs5700.hw1-connor-runyan</groupId>
     <artifactId>cs5700_hw1</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -20,6 +21,9 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>drone_connection</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

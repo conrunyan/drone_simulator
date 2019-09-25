@@ -1,5 +1,0 @@
-@User has not input an IP address. Using default '192.168.10.1'
-IERROR: Cannot send drone command takeoff until drone is in command mode
-Connecting to drone....
-QOops, couldn't establish drone connection. Make sure you're on the Drone's WiFi.
-DAlso check your IP address, and port to make sure they're correct.

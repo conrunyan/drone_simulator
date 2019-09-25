@@ -103,7 +103,8 @@ public class DroneConnectionTest {
         // "takeoff" command should now work
         String result3 = testDrone.communicateWithDrone("takeoff");
         assertEquals(result3, "ok");
-//
+
+        // kill drone server
     }
 
 }
