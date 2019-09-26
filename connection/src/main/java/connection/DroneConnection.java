@@ -2,6 +2,7 @@ package connection;
 
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import messages.Message;
 
 public class DroneConnection {
 

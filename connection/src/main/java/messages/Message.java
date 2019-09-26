@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Message {
-    private boolean valid = true;
+    private boolean valid = false;
     String payload = null;
     String matchPattern;
 

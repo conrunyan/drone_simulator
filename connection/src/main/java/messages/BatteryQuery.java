@@ -3,7 +3,7 @@ package messages;
 public class BatteryQuery extends Message{
 
     public BatteryQuery(String data) {
-        matchPattern = getKeyWord() + " (\\d+)";
+        matchPattern = getKeyWord();
         parseIncomingData(data);
     }
 
