@@ -1,4 +1,22 @@
 package messages;
 
-public class BatteryQuery {
+public class BatteryQuery extends Message{
+
+    public BatteryQuery(String data) {
+        matchPattern = getKeyWord() + " (\\d+)";
+        parseIncomingData(data);
+    }
+
+    public static String getKeyWord() {
+        return "battery?";
+    }
+
+    @Override
+    public String getMessageType() {
+        return "information";
+    }
+
+    protected String getMessageText() {
+        return payload;
+    }
 }

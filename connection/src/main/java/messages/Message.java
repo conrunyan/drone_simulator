@@ -1,9 +1,13 @@
 package messages;
 
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Message {
     private boolean valid = true;
+    String payload = null;
+    String matchPattern;
 
     public static Message decode(byte[] bytes, int offset, int length) {
         Message message = null;
@@ -31,6 +35,19 @@ public abstract class Message {
     public boolean isValid() { return valid; }
 
     protected void setIsValid(boolean valid) { this.valid = valid; }
+
+    protected void parseIncomingData(String data) {
+        if (data==null || data.isEmpty())
+            return;
+
+        Pattern pat = Pattern.compile(matchPattern);
+        Matcher match = pat.matcher(data);
+
+        if (match.find()) {
+            setIsValid(true);
+            payload = data;
+        }
+    }
 
     @Override
     public String toString() {

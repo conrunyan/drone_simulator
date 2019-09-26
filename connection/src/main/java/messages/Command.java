@@ -3,7 +3,8 @@ package messages;
 public class Command extends Message {
 
     public Command(String data) {
-        // TODO: Implement constructor
+        matchPattern = getKeyWord();
+        parseIncomingData(data);
     }
 
     public static String getKeyWord() {
@@ -16,7 +17,6 @@ public class Command extends Message {
     }
 
     protected String getMessageText() {
-        // TODO: Implement getMessageText
-        return getMessageType();
+        return payload;
     }
 }
