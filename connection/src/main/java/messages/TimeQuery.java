@@ -3,7 +3,7 @@ package messages;
 public class TimeQuery extends Message{
 
     public TimeQuery(String data) {
-        matchPattern = getKeyWord();
+        matchPattern = "time\\?$";
         parseIncomingData(data);
     }
 

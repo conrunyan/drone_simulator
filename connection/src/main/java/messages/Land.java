@@ -3,7 +3,7 @@ package messages;
 public class Land extends Message{
 
     public Land(String data) {
-        matchPattern = getKeyWord();
+        matchPattern = getKeyWord() + "$";
         parseIncomingData(data);
     }
 

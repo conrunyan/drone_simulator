@@ -8,13 +8,39 @@ public class FlipTest {
 
     @Test
     public void getKeyWord() {
+        assertEquals("flip", Flip.getKeyWord());
     }
 
     @Test
     public void getMessageType() {
+        Flip bq = new Flip("flip 180");
+        assertEquals("directive", bq.getMessageType());
     }
 
     @Test
-    public void getMessageText() {
+    public void getMessageTextL() {
+        Flip bq = new Flip("flip l");
+        assertEquals("flip l", bq.getMessageText());
+    }
+    @Test
+    public void getMessageTextR() {
+        Flip bq = new Flip("flip r");
+        assertEquals("flip r", bq.getMessageText());
+    }
+    @Test
+    public void getMessageTextU() {
+        Flip bq = new Flip("flip u");
+        assertEquals("flip u", bq.getMessageText());
+    }
+    @Test
+    public void getMessageTextD() {
+        Flip bq = new Flip("flip d");
+        assertEquals("flip d", bq.getMessageText());
+    }
+
+    @Test
+    public void getMessageTextNegative() {
+        Flip bq = new Flip("flip q");
+        assertNull(bq.getMessageText());
     }
 }

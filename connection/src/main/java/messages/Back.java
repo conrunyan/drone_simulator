@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Back extends Message{
 
     public Back(String data) {
-        matchPattern = getKeyWord() + " (\\d+)";
+        matchPattern = getKeyWord() + " (\\d+)$";
         parseIncomingData(data);
     }
 

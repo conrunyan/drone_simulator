@@ -3,7 +3,7 @@ package messages;
 public class Stop extends Message{
 
     public Stop(String data) {
-        matchPattern = getKeyWord();
+        matchPattern = getKeyWord() + "$";
         parseIncomingData(data);
     }
 

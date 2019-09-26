@@ -3,7 +3,7 @@ package messages;
 public class Forward extends Message{
 
     public Forward(String data) {
-        matchPattern = getKeyWord() + " (\\d+)";
+        matchPattern = getKeyWord() + " (\\d+)$";
         parseIncomingData(data);
     }
 

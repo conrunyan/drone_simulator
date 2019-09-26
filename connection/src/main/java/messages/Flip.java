@@ -3,7 +3,7 @@ package messages;
 public class Flip extends Message{
 
     public Flip(String data) {
-        matchPattern = getKeyWord() + " (\\w{1})";
+        matchPattern = getKeyWord() + " ([u,d,l,r])$";
         parseIncomingData(data);
     }
 

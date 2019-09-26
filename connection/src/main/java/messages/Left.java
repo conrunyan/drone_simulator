@@ -3,7 +3,7 @@ package messages;
 public class Left extends Message{
 
     public Left(String data) {
-        matchPattern = getKeyWord() + " (\\d+)";
+        matchPattern = getKeyWord() + " (\\d+)$";
         parseIncomingData(data);
     }
 

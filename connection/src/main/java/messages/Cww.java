@@ -3,7 +3,7 @@ package messages;
 public class Cww extends Message {
 
     public Cww(String data) {
-        matchPattern = getKeyWord() + " (\\d+)";
+        matchPattern = getKeyWord() + " (\\d+)$";
         parseIncomingData(data);
     }
 

@@ -3,7 +3,7 @@ package messages;
 public class Go extends Message{
 
     public Go(String data) {
-        matchPattern = getKeyWord() + " (\\d+ \\d+ \\d+ \\d+)";
+        matchPattern = getKeyWord() + " (\\d+ \\d+ \\d+ \\d+)$";
         parseIncomingData(data);
     }
 

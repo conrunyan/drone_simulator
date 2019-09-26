@@ -3,7 +3,7 @@ package messages;
 public class Down extends Message {
 
     public Down(String data) {
-        matchPattern = getKeyWord() + " (\\d+)";
+        matchPattern = getKeyWord() + " (\\d+)$";
         parseIncomingData(data);
     }
 

@@ -3,7 +3,7 @@ package messages;
 public class Takeoff extends Message{
 
     public Takeoff(String data) {
-        matchPattern = getKeyWord();
+        matchPattern = getKeyWord() + "$";
         parseIncomingData(data);
     }
 

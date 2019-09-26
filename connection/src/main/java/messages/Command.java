@@ -3,7 +3,7 @@ package messages;
 public class Command extends Message {
 
     public Command(String data) {
-        matchPattern = getKeyWord();
+        matchPattern = getKeyWord() + "$";
         parseIncomingData(data);
     }
 

@@ -3,7 +3,7 @@ package messages;
 public class SpeedQuery extends Message{
 
     public SpeedQuery(String data) {
-        matchPattern = getKeyWord();
+        matchPattern = "speed\\?$";
         parseIncomingData(data);
     }
 
