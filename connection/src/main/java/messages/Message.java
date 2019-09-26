@@ -19,9 +19,41 @@ public abstract class Message {
 
             if (data.startsWith(Status.getKeyWord()))
                 message = new Status(data);
-
-            // TODO: decode all of the other kinds of messages based on what the message starts with.  If it doesn't
-            //       start with a recognized key work, assume it is an info message (i.e., a reply to a query)
+            else if (data.startsWith(Back.getKeyWord()))
+                message = new Back(data);
+            else if (data.startsWith(BatteryQuery.getKeyWord()))
+                message = new BatteryQuery(data);
+            else if (data.startsWith(Command.getKeyWord()))
+                message = new Command(data);
+            else if (data.startsWith(Cw.getKeyWord()))
+                message = new Cw(data);
+            else if (data.startsWith(Cww.getKeyWord()))
+                message = new Cww(data);
+            else if (data.startsWith(Down.getKeyWord()))
+                message = new Down(data);
+            else if (data.startsWith(Flip.getKeyWord()))
+                message = new Flip(data);
+            else if (data.startsWith(Forward.getKeyWord()))
+                message = new Forward(data);
+            else if (data.startsWith(Go.getKeyWord()))
+                message = new Go(data);
+            else if (data.startsWith(Land.getKeyWord()))
+                message = new Land(data);
+            else if (data.startsWith(Left.getKeyWord()))
+                message = new Left(data);
+            else if (data.startsWith(Right.getKeyWord()))
+                message = new Right(data);
+            else if (data.startsWith(SpeedQuery.getKeyWord()))
+                message = new SpeedQuery(data);
+            else if (data.startsWith(Stop.getKeyWord()))
+                message = new Stop(data);
+            else if (data.startsWith(Takeoff.getKeyWord()))
+                message = new Takeoff(data);
+            else if (data.startsWith(TimeQuery.getKeyWord()))
+                message = new Up(data);
+            else {
+                System.out.println("ERROR: Invalid message: " + data);
+            }
         }
         return message;
     }
