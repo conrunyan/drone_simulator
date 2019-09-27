@@ -20,6 +20,7 @@ public class MessageTest {
         String goMessage = "go 10 10 10 30";
         String landMessage = "land";
         String leftMessage = "left 120";
+        String okMessage = "ok";
         String rightMessage = "right 120";
         String speedMessage = "speed?";
         String stopMessage = "stop";
@@ -38,6 +39,7 @@ public class MessageTest {
         Message go = Message.decode(goMessage.getBytes(), 0, goMessage.length());
         Message land = Message.decode(landMessage.getBytes(), 0, landMessage.length());
         Message left = Message.decode(leftMessage.getBytes(), 0, leftMessage.length());
+        Message ok = Message.decode(okMessage.getBytes(), 0, okMessage.length());
         Message right = Message.decode(rightMessage.getBytes(), 0, rightMessage.length());
         Message speed = Message.decode(speedMessage.getBytes(), 0, speedMessage.length());
         Message stop = Message.decode(stopMessage.getBytes(), 0, stopMessage.length());
@@ -56,6 +58,7 @@ public class MessageTest {
         assertTrue(go instanceof Go);
         assertTrue(land instanceof Land);
         assertTrue(left instanceof Left);
+        assertTrue(ok instanceof Ok);
         assertTrue(right instanceof Right);
         assertTrue(speed instanceof SpeedQuery);
         assertTrue(stop instanceof Stop);

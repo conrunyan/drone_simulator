@@ -1,8 +1,5 @@
 package messages;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Back extends Message{
 
     public Back(String data) {
@@ -19,7 +16,7 @@ public class Back extends Message{
         return "directive";
     }
 
-    protected String getMessageText() {
+    public String getMessageText() {
         return payload;
     }
 }

@@ -16,7 +16,7 @@ public class Cww extends Message {
         return "directive";
     }
 
-    protected String getMessageText() {
+    public String getMessageText() {
         return payload;
     }
 }

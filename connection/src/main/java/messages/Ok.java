@@ -1,14 +1,14 @@
 package messages;
 
-public class TimeQuery extends Message{
+public class Ok extends Message{
 
-    public TimeQuery(String data) {
-        matchPattern = "time\\?$";
+    public Ok(String data) {
+        matchPattern = "ok$";
         parseIncomingData(data);
     }
 
     public static String getKeyWord() {
-        return "time?";
+        return "ok";
     }
 
     @Override

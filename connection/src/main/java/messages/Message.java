@@ -41,6 +41,8 @@ public abstract class Message {
                 message = new Land(data);
             else if (data.startsWith(Left.getKeyWord()))
                 message = new Left(data);
+            else if (data.startsWith(Ok.getKeyWord()))
+                message = new Ok(data);
             else if (data.startsWith(Right.getKeyWord()))
                 message = new Right(data);
             else if (data.startsWith(SpeedQuery.getKeyWord()))
@@ -64,7 +66,9 @@ public abstract class Message {
 
     public abstract String getMessageType();
 
-    protected String getMessageText() { return getMessageType(); }
+    public String getMessageText() {
+        return getMessageText();
+    }
 
     public boolean isValid() { return valid; }
 

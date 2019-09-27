@@ -16,7 +16,7 @@ public class SpeedQuery extends Message{
         return "information";
     }
 
-    protected String getMessageText() {
+    public String getMessageText() {
         return payload;
     }
 }
