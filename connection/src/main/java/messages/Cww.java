@@ -3,12 +3,12 @@ package messages;
 public class Cww extends Message {
 
     public Cww(String data) {
-        matchPattern = getKeyWord() + " (\\d+)$";
+        matchPattern = getKeyWord() + "(\\d+)$";
         parseIncomingData(data);
     }
 
     public static String getKeyWord() {
-        return "cww";
+        return "cww ";
     }
 
     @Override

@@ -50,6 +50,8 @@ public abstract class Message {
             else if (data.startsWith(Takeoff.getKeyWord()))
                 message = new Takeoff(data);
             else if (data.startsWith(TimeQuery.getKeyWord()))
+                message = new TimeQuery(data);
+            else if (data.startsWith(Up.getKeyWord()))
                 message = new Up(data);
             else {
                 System.out.println("ERROR: Invalid message: " + data);
