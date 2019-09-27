@@ -1,29 +1,27 @@
 package missions;
 
-import drone.DroneConnection;
+import connection.DroneConnection;
 import flight.*;
 
-public class MissionTwo extends Mission {
+public class MissionThree extends Mission {
 
 	private FlyBackward flyBack;
-	private FlyLeft flyLeft;
-	private FlyRight flyRight;
 	private FlyForward flyForward;
+	private FlyFlip flyFlip;
 	private FlyLiftOff flyLiftOff;
 	private FlyLand flyLand;
 	private int missionNumber;
 	private int timeBetweenCommands;
 	private FlightBehavior[] flightBehaviors;
 
-	public MissionTwo() {
+	public MissionThree() {
 		flyBack = new FlyBackward();
-		flyLeft = new FlyLeft();
-		flyRight = new FlyRight();
+		flyFlip = new FlyFlip();
 		flyForward = new FlyForward();
 		flyLiftOff = new FlyLiftOff();
 		flyLand = new FlyLand();
 		missionNumber = 1;
-		flightBehaviors = new FlightBehavior[] {flyLiftOff, flyBack, flyLeft, flyForward, flyRight, flyLand};
+		flightBehaviors = new FlightBehavior[] {flyLiftOff, flyBack, flyFlip, flyForward, flyFlip, flyLand};
 		timeBetweenCommands = 2000;
 	}
 

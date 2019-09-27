@@ -1,4 +1,4 @@
-package mission;
+package missions;
 
 import missions.*;
 import org.junit.*;
