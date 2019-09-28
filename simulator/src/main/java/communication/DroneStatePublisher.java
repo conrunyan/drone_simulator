@@ -1,6 +1,7 @@
 package communication;
 
 import connection.DroneConnection;
+import messages.Status;
 import state.DroneState;
 import communication.DroneObserver;
 import java.util.ArrayList;
@@ -19,9 +20,28 @@ public class DroneStatePublisher {
         publisherConnection.setInputConnectionPort("8890");
     }
 
-    public void notifyObservers() {
+    public void notifyObservers() throws Exception{
+        Status newStatus = new Status(
+            simState.getPitch(),
+            simState.getRoll(),
+            simState.getYaw(),
+            simState.getSpeedX(),
+            simState.getSpeedY(),
+            simState.getSpeedZ(),
+            simState.getLowTemperature(),
+            simState.getHighTemperature(),
+            simState.getFlightDistance(),
+            simState.getHeight(),
+            simState.getBatteryPercentage(),
+            simState.getBarometerMeasurement(),
+            simState.getMotorTime(),
+            simState.getAccelerationX(),
+            simState.getAccelerationY(),
+            simState.getAccelerationZ()
+        );
         for (DroneObserver obs : observers) {
-            // TODO: notify observers here
+
+            publisherConnection.sendMessage(newStatus);
         }
     }
 
