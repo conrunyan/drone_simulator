@@ -104,7 +104,7 @@ public class DroneConnectionTest {
         Message result = testDrone.communicateWithDrone(outMsg);
         testDrone.connectToDrone();
         assertFalse(testDrone.getConnectionStatus());
-        assertNull(result);
+        assertEquals("error", result.getMessageText());
 
         // "command" message should work
         testDrone.connectToDrone();
@@ -114,7 +114,7 @@ public class DroneConnectionTest {
 
         // "takeoff" command should now work
         Message result3 = testDrone.communicateWithDrone(outMsgCmd);
-        assertNull(result3.getMessageText());
+        assertEquals("error", result3.getMessageText());
 
         // kill drone server
     }

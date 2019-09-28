@@ -55,6 +55,8 @@ public abstract class Message {
                 message = new TimeQuery(data);
             else if (data.startsWith(Up.getKeyWord()))
                 message = new Up(data);
+            else if (data.startsWith(ErrorInfo.getKeyWord()))
+                message = new ErrorInfo(data);
             else {
                 System.out.println("ERROR: Invalid message: " + data);
             }

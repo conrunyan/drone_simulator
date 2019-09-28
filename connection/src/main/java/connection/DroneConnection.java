@@ -28,7 +28,7 @@ public class DroneConnection {
 
         // sends message, then waits for a return
         int tries = 0;
-        Message reply = null;
+        Message reply = Message.decode("error".getBytes(), 0, "error".length());
         // can't send messages unless the drone is connected
         if (isConnected || message.getMessageText().equals("command")) {
             while (tries < this.MAX_NUM_OF_RETRIES) {
