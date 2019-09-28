@@ -48,7 +48,7 @@ public class DroneConnection {
             System.out.println("ERROR: Cannot send drone command " + message + " until drone is in command mode");
         }
 
-        return message;
+        return reply;
     }
 
     public void sendMessage(Message message) throws Exception{
@@ -67,7 +67,7 @@ public class DroneConnection {
 
         byte[] bytesReceived;
         DatagramPacket datagramPacket;
-        Message reply = null;
+        Message reply = Message.decode("error".getBytes(), 0, "error".length());
 
         bytesReceived = new byte[64];
         datagramPacket = new DatagramPacket(bytesReceived, 64);
