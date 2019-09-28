@@ -19,12 +19,12 @@ public class DroneConnection {
         inputConnectionPort = "N/A";
         inputConnectionIP = "N/A";
         isConnected = false;
-        udpClient = new DatagramSocket();
+        udpClient = new DatagramSocket(0);
         udpClient.setSoTimeout(1000);
     }
 
     // class public methods
-    public String communicateWithDrone(Message message) throws Exception{
+    public Message communicateWithDrone(Message message) throws Exception{
 
         // sends message, then waits for a return
         int tries = 0;
@@ -47,10 +47,11 @@ public class DroneConnection {
         else {
             System.out.println("ERROR: Cannot send drone command " + message + " until drone is in command mode");
         }
-        return reply.getMessageText();
+
+        return message;
     }
 
-    private void sendMessage(Message message) throws Exception{
+    public void sendMessage(Message message) throws Exception{
 
         byte[] bytesToSend;
         DatagramPacket datagramPacket;
@@ -62,7 +63,7 @@ public class DroneConnection {
 //		System.out.println("Sent " + message + " message to " + this.connectionIP.toString() + ":" + this.connectionPort);
     }
 
-    private Message listenForMessage() throws Exception{
+    public Message listenForMessage() throws Exception{
 
         byte[] bytesReceived;
         DatagramPacket datagramPacket;

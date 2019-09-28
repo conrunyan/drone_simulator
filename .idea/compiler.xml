@@ -9,6 +9,7 @@
         <module name="simulator" />
         <module name="connection" />
         <module name="simmulator" />
+        <module name="flyer" />
       </profile>
     </annotationProcessing>
   </component>

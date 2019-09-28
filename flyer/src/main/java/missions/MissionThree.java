@@ -5,23 +5,17 @@ import flight.*;
 
 public class MissionThree extends Mission {
 
-	private FlyBackward flyBack;
-	private FlyForward flyForward;
-	private FlyFlip flyFlip;
-	private FlyLiftOff flyLiftOff;
-	private FlyLand flyLand;
-	private int missionNumber;
 	private int timeBetweenCommands;
 	private FlightBehavior[] flightBehaviors;
 
 	public MissionThree() {
-		flyBack = new FlyBackward();
-		flyFlip = new FlyFlip();
-		flyForward = new FlyForward();
-		flyLiftOff = new FlyLiftOff();
-		flyLand = new FlyLand();
-		missionNumber = 1;
-		flightBehaviors = new FlightBehavior[] {flyLiftOff, flyBack, flyFlip, flyForward, flyFlip, flyLand};
+		missionNumber = 3;
+		flightBehaviors = new FlightBehavior[] {
+			new FlyBackward(100),
+			new FlyFlip("f"),
+			new FlyForward(100),
+			new FlyFlip("b"),
+		};
 		timeBetweenCommands = 2000;
 	}
 
@@ -29,7 +23,7 @@ public class MissionThree extends Mission {
 		timeBetweenCommands = timeToSleep;
 	}
 
-	public void executeMission(DroneConnection droneConnection) throws Exception{
+	public void executeSubMission(DroneConnection droneConnection) throws Exception{
 		for (FlightBehavior fb : this.flightBehaviors) {
 			System.out.println("\tExecuting flight pattern: " + fb.flyInDirection());
 			droneConnection.communicateWithDrone(fb.flyInDirection());

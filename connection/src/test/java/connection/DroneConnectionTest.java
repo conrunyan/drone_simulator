@@ -63,6 +63,7 @@ public class DroneConnectionTest {
     @Test
     public void testDroneConnectionInitialConnection() throws Exception{
         DroneConnection testDrone = new DroneConnection();
+        DroneConnection testDrone2 = new DroneConnection();
 
         String userInputIP = "127.0.0.1";
         String userInputPort = "5005";
@@ -71,15 +72,18 @@ public class DroneConnectionTest {
 
         testDrone.setInputConnectionIP(userInputIP);
         testDrone.setInputConnectionPort(userInputPort);
+        testDrone2.setInputConnectionIP(testDrone.getInputConnectionIP());
+        testDrone2.setInputConnectionPort("23549");
 
-        // live connection
-        String result = testDrone.communicateWithDrone(outMsg);
+        testDrone.sendMessage(outMsg);
+        Message result = testDrone2.listenForMessage();
 
-        assertEquals(result, "ok");
+
+        assertEquals("command", result.getMessageText());
 
         // dead connection
-        String result2 = testDrone.communicateWithDrone(outMsg);
-        assertNull(result2);
+//        String result2 = testDrone.communicateWithDrone(outMsg);
+//        assertNull(result2);
     }
 
     @Test
@@ -97,20 +101,20 @@ public class DroneConnectionTest {
         testDrone.setInputConnectionPort(userInputPort);
 
         // try to send a message. result should be null, as it's not connected yet
-        String result = testDrone.communicateWithDrone(outMsg);
-//        testDrone.connectToDrone();
+        Message result = testDrone.communicateWithDrone(outMsg);
+        testDrone.connectToDrone();
         assertFalse(testDrone.getConnectionStatus());
         assertNull(result);
 
         // "command" message should work
         testDrone.connectToDrone();
-        String result2 = testDrone.communicateWithDrone(outMsg);
-        assertEquals(result2, "ok");
+        Message result2 = testDrone.communicateWithDrone(outMsg);
+        assertEquals(result2.getMessageText(), "ok");
         assertTrue(testDrone.getConnectionStatus());
 
         // "takeoff" command should now work
-        String result3 = testDrone.communicateWithDrone(outMsgCmd);
-        assertEquals(result3, "ok");
+        Message result3 = testDrone.communicateWithDrone(outMsgCmd);
+        assertNull(result3.getMessageText());
 
         // kill drone server
     }

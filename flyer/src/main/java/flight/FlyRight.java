@@ -1,10 +1,19 @@
 package flight;
 
+import messages.Message;
+
 public class FlyRight implements FlightBehavior {
 
-	public String flyInDirection() {
-		// flies backwards 100 cm
-		return "right 100";
+	private Integer flightDistance;
+
+	public FlyRight(int distance) {
+		flightDistance = distance;
+	}
+
+	public Message flyInDirection() {
+		// fly forward
+		String command = "right " + flightDistance.toString();
+		return Message.decode(command.getBytes(), 0, command.length());
 	}
 
 	public void displayBehaviorName() {

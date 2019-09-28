@@ -1,10 +1,19 @@
 package flight;
 
+import messages.Message;
+
 public class FlyFlip implements FlightBehavior {
 
-	public String flyInDirection() {
-		// flies backwards 100 cm
-		return "flip b";
+	private String flightDirection;
+
+	public FlyFlip(String direction) {
+		flightDirection = direction;
+	}
+
+	public Message flyInDirection() {
+		// flips
+		String command = "flip " + flightDirection;
+		return Message.decode(command.getBytes(), 0, command.length());
 	}
 
 	public void displayBehaviorName() {

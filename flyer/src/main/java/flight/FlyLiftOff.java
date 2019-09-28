@@ -1,10 +1,13 @@
 package flight;
 
+import messages.Message;
+
 public class FlyLiftOff implements FlightBehavior {
 
-	public String flyInDirection() {
-		// drone takes off
-		return "takeoff";
+	public Message flyInDirection() {
+		// lands drone
+		String command = "takeoff";
+		return Message.decode(command.getBytes(), 0, command.length());
 	}
 
 	public void displayBehaviorName() {

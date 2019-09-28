@@ -24,6 +24,7 @@
     <modules>
         <module>connection</module>
         <module>simulator</module>
+        <module>flyer</module>
     </modules>
 
     <properties>

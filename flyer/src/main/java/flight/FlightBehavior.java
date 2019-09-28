@@ -1,8 +1,10 @@
 package flight;
 
+import messages.Message;
+
 public interface FlightBehavior {
 
-	String flyInDirection();
+	Message flyInDirection();
 	void displayBehaviorName();
 
 }
