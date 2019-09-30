@@ -110,7 +110,6 @@ public class MessageTest {
         String goMsg = "go 10 20 20 5";
         ArrayList<String> expected = new ArrayList<String>(Arrays.asList("10", "20", "20", "5"));
         Message goObj = Message.decode(goMsg.getBytes(), 0, goMsg.length());
-        goObj.parseIncomingData(goMsg);
         ArrayList<String> output = goObj.getPayloadModifiers();
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.get(i), output.get(i));

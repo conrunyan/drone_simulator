@@ -35,6 +35,34 @@ public class DroneState {
         resetState();
     }
 
+    public DroneState(DroneState stateToCopy) {
+        this.inCommandMode = stateToCopy.isInCommandMode();
+        this.hasTakenOff = stateToCopy.hasTakenOff();
+        this.videoStreamOn = stateToCopy.isVideoStreamOn();
+        this.stateTimestamp = stateToCopy.getStateTimestamp();
+        this.currentFlightTime = stateToCopy.getCurrentFlightTime();
+        this.positionX = stateToCopy.getPositionX();
+        this.positionY = stateToCopy.getPositionY();
+        this.positionZ = stateToCopy.getPositionZ();
+        this.pitch = stateToCopy.getPitch();
+        this.roll = stateToCopy.getRoll();
+        this.yaw = stateToCopy.getYaw();
+        this.speedX = stateToCopy.getSpeedX();
+        this.speedY = stateToCopy.getSpeedY();
+        this.speedZ = stateToCopy.getSpeedZ();
+        this.lowTemperature = stateToCopy.getLowTemperature();
+        this.highTemperature = stateToCopy.getHighTemperature();
+        this.flightDistance = stateToCopy.getFlightDistance();
+        this.height = stateToCopy.getHeight();
+        this.batteryPercentage = stateToCopy.getBatteryPercentage();
+        this.barometerMeasurement = stateToCopy.getBarometerMeasurement();
+        this.motorTime = stateToCopy.getMotorTime();
+        this.accelerationX = stateToCopy.getAccelerationX();
+        this.accelerationY = stateToCopy.getAccelerationY();
+        this.accelerationZ = stateToCopy.getAccelerationZ();
+        this.orientation = stateToCopy.getOrientation();
+    }
+
     public boolean isInCommandMode() { return inCommandMode; }
 
     public void setInCommandMode(boolean inCommandMode) {
@@ -57,6 +85,10 @@ public class DroneState {
         this.hasTakenOff = inCommandMode && hasTakenOff;
         if (!this.hasTakenOff)
             resetFlyingInfo();
+    }
+
+    public boolean lowBattery() {
+        return this.batteryPercentage <= 20;
     }
 
     public boolean isVideoStreamOn() { return videoStreamOn; }

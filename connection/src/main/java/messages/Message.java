@@ -74,7 +74,10 @@ public abstract class Message {
         return getMessageText();
     }
 
-    public ArrayList<String> getPayloadModifiers() { return this.payloadModifiers; }
+    public ArrayList<String> getPayloadModifiers() {
+        parseIncomingData(this.payload);
+        return this.payloadModifiers;
+    }
 
     public boolean isValid() { return valid; }
 
