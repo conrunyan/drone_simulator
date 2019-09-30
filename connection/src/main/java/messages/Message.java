@@ -1,12 +1,14 @@
 package messages;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Message {
     private boolean valid = false;
     String payload = null;
+    ArrayList<String> payloadModifiers = new ArrayList<String>();
     String matchPattern;
 
     public static Message decode(byte[] bytes, int offset, int length) {
@@ -72,6 +74,8 @@ public abstract class Message {
         return getMessageText();
     }
 
+    public ArrayList<String> getPayloadModifiers() { return this.payloadModifiers; }
+
     public boolean isValid() { return valid; }
 
     protected void setIsValid(boolean valid) { this.valid = valid; }
@@ -86,6 +90,11 @@ public abstract class Message {
         if (match.find()) {
             setIsValid(true);
             payload = data;
+            if (match.groupCount() > 0) {
+                for (int i = 1; i < match.groupCount() + 1; i++) {
+                    payloadModifiers.add(match.group(i));
+                }
+            }
         }
     }
 

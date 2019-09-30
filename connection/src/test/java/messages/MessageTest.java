@@ -2,6 +2,10 @@ package messages;
 
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class MessageTest {
@@ -99,5 +103,17 @@ public class MessageTest {
         Message cmd = Message.decode(testCommandBytes, 0, testCommand.length());
 
         assertEquals("Command command", cmd.toString());
+    }
+
+    @Test
+    public void testParseIncomingData() {
+        String goMsg = "go 10 20 20 5";
+        ArrayList<String> expected = new ArrayList<String>(Arrays.asList("10", "20", "20", "5"));
+        Message goObj = Message.decode(goMsg.getBytes(), 0, goMsg.length());
+        goObj.parseIncomingData(goMsg);
+        ArrayList<String> output = goObj.getPayloadModifiers();
+        for (int i = 0; i < expected.size(); i++) {
+            assertEquals(expected.get(i), output.get(i));
+        }
     }
 }
