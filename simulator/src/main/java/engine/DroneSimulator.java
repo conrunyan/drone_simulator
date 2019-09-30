@@ -4,6 +4,7 @@ import communication.DroneStatePublisher;
 import connection.DroneConnection;
 import messages.Message;
 import state.DroneState;
+import state.DroneStateHandler;
 
 public class DroneSimulator {
 
@@ -21,19 +22,24 @@ public class DroneSimulator {
         simPublisher = new DroneStatePublisher(simConnection);
     }
 
+    public DroneState getSimState() {
+        return new DroneState(simState);
+    }
+
     public void startSimulator() {
 
     }
 
     // parses message and handles updating the state as
     // needed.
-    private void executeRequest(Message msg) {
-
+    void executeRequest(Message msg) {
+        simState = DroneStateHandler.handleMessage(msg, simState);
+        updateStatus();
     }
 
     // triggers event, causing drone state publisher
     // to notify observers and update info
-    private void updateStatus(Message msg) {
+    private void updateStatus() {
 
     }
 }
