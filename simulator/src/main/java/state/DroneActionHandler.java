@@ -9,23 +9,32 @@ public class DroneActionHandler {
          return newState;
      }
 
-     public static void handleCommand(DroneState state, boolean commandToggle) {
-         state.setInCommandMode(commandToggle);
+     public static DroneState handleCommand(DroneState state, boolean commandToggle) {
+         DroneState newState = new DroneState(state);
+         newState.setInCommandMode(commandToggle);
+         return newState;
      }
 
-     public static void handleCw(DroneState state, String direction) {
-         state.rotate(Integer.parseInt(direction));
+     public static DroneState handleCw(DroneState state, String direction) {
+         DroneState newState = new DroneState(state);
+         newState.rotate(Integer.parseInt(direction));
+         return newState;
      }
 
-     public static void handleCww(DroneState state, String direction) {
-         state.rotate(-Integer.parseInt(direction));
+     public static DroneState handleCww(DroneState state, String direction) {
+         DroneState newState = new DroneState(state);
+         newState.rotate(-Integer.parseInt(direction));
+         return newState;
      }
 
-     public static void handleMoveDown(DroneState state, String distance) {
-         state.move(0, 0, Double.parseDouble(distance));
+     public static DroneState handleMoveDown(DroneState state, String distance) {
+         DroneState newState = new DroneState(state);
+         newState.move(0, 0, -Double.parseDouble(distance));
+         return newState;
      }
 
-     public static void handleFlip(DroneState state, String direction) {
+     public static DroneState handleFlip(DroneState state, String direction) {
+         DroneState newState = new DroneState(state);
          String stdDistance = "10";
          if (state.lowBattery()) {
              if (direction.equals("l")) {
@@ -35,26 +44,31 @@ public class DroneActionHandler {
                  // TODO: go left
              }
              else if (direction.equals("b")) {
-                 handleMoveBack(state, stdDistance);
+                 newState = handleMoveBack(state, stdDistance);
              }
              else if (direction.equals("f")) {
-                 handleMoveForward(state, stdDistance);
+                 newState = handleMoveForward(state, stdDistance);
              }
              else {
                  System.out.println(String.format("ERROR: invalid flip direction '%s' in DroneStateHandler", direction));
              }
          }
+         return newState;
      }
 
-    public static void handleMoveForward(DroneState state, String distance) {
-        state.move(0, Double.parseDouble(distance), 0);
+    public static DroneState handleMoveForward(DroneState state, String distance) {
+        DroneState newState = new DroneState(state);
+        newState.move(0, Double.parseDouble(distance), 0);
+        return newState;
     }
 
-    public static void handleGo(DroneState state, ArrayList<String> goDirections) {
-         state.move(
+    public static DroneState handleGo(DroneState state, ArrayList<String> goDirections) {
+        DroneState newState = new DroneState(state);
+        newState.move(
                  Double.parseDouble(goDirections.get(0)),
                  Double.parseDouble(goDirections.get(1)),
                  Double.parseDouble(goDirections.get(2))
          );
+        return newState;
     }
 }
