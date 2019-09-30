@@ -18,6 +18,13 @@ public class DroneStatePublisher {
         publisherConnection = new DroneConnection();
         publisherConnection.setInputConnectionIP(simConnect.getInputConnectionIP());
         publisherConnection.setInputConnectionPort("8890");
+
+        observers = new ArrayList<DroneObserver>();
+        simState = new DroneState();
+    }
+
+    public int getObserverCount() {
+        return observers.size();
     }
 
     public void notifyObservers() throws Exception{
@@ -45,7 +52,7 @@ public class DroneStatePublisher {
         }
     }
 
-    public void subsribeNewObserver(DroneObserver newObs) {
+    public void subscribeNewObserver(DroneObserver newObs) {
         observers.add(newObs);
     }
 
