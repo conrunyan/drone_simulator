@@ -9,6 +9,8 @@ public abstract class Message {
     private boolean valid = false;
     String payload = null;
     ArrayList<String> payloadModifiers = new ArrayList<String>();
+    String remoteIPAddr = null;
+    String remotePort = null;
     String matchPattern;
 
     public static Message decode(byte[] bytes, int offset, int length) {

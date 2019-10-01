@@ -52,6 +52,10 @@ public class DroneStatePublisher {
         }
     }
 
+    public void updatePublisherState(DroneState state) {
+        simState = state;
+    }
+
     public void subscribeNewObserver(DroneObserver newObs) {
         observers.add(newObs);
     }
