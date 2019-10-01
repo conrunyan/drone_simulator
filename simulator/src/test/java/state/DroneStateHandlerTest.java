@@ -24,6 +24,7 @@ public class DroneStateHandlerTest {
         Message stop = Message.decode("stop".getBytes(), 0, "stop".length());
         Message takeoff = Message.decode("takeoff".getBytes(), 0, "takeoff".length());
         Message up = Message.decode("up 10".getBytes(), 0, "up 10".length());
+        Message error = Message.decode("INVALID MESSAGE".getBytes(), 0, "INVALID MESSAGE".length());
 
         DroneState state = new DroneState();
         state.setInCommandMode(true);
@@ -80,5 +81,8 @@ public class DroneStateHandlerTest {
 
         state = DroneStateHandler.handleMessage(up, state);
         assertEquals(10, state.getPositionZ(), 0.01);
+
+        state = DroneStateHandler.handleMessage(error, state);
+
     }
 }

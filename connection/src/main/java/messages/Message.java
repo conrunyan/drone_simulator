@@ -61,6 +61,7 @@ public abstract class Message {
                 message = new ErrorInfo(data);
             else {
                 System.out.println("ERROR: Invalid message: " + data);
+                message = new ErrorInfo(data);
             }
         }
         return message;

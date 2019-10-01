@@ -122,8 +122,7 @@ public class DroneActionHandlerTest {
 
         DroneState newState = DroneActionHandler.handleLand(state);
 
-        assertTrue(state.isInCommandMode());
-        assertFalse(newState.isInCommandMode());
+        assertFalse(newState.hasTakenOff());
     }
 
     @Test

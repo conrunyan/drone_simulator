@@ -12,6 +12,10 @@ public abstract class DroneStateHandler {
         String data = msg.getMessageText();
         DroneState newState = new DroneState(state);
 
+        if (data == null) {
+            return newState;
+        }
+
         if (data.startsWith(Back.getKeyWord()))
             newState = DroneActionHandler.handleMoveBack(newState, payloadModifiers.get(0));
         else if (data.startsWith(Command.getKeyWord()))
@@ -48,7 +52,7 @@ public abstract class DroneStateHandler {
         else if (data.startsWith(Up.getKeyWord()))
             newState = DroneActionHandler.handleMoveUp(newState, payloadModifiers.get(0));
         else {
-            System.out.println("ERROR: Invalid request to modify drone state: " + data);
+            System.out.println("ERROR: Invalid request to modify drone state: " + msg);
         }
         return newState;
     }
