@@ -3,7 +3,7 @@ package communication;
 import connection.DroneConnection;
 import messages.Status;
 import state.DroneState;
-import communication.DroneObserver;
+
 import java.util.ArrayList;
 
 // watches drone state, and updates observers upon
@@ -16,8 +16,8 @@ public class DroneStatePublisher {
 
     public DroneStatePublisher(DroneConnection simConnect) throws Exception {
         publisherConnection = new DroneConnection();
-        publisherConnection.setInputConnectionIP(simConnect.getInputConnectionIP());
-        publisherConnection.setInputConnectionPort("8890");
+        publisherConnection.setLocalIP(simConnect.getLocalIP());
+        publisherConnection.setLocalPort("8890");
 
         observers = new ArrayList<DroneObserver>();
         simState = new DroneState();

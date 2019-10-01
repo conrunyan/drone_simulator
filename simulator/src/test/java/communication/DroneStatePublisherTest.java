@@ -1,7 +1,6 @@
 package communication;
 
 import connection.DroneConnection;
-import messages.Message;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -28,13 +27,13 @@ public class DroneStatePublisherTest {
         DroneConnection listener = new DroneConnection();
         DroneObserver obs = new DroneObserver();
 
-        conn.setInputConnectionIP("127.0.0.1");
-        conn.setInputConnectionPort("5005");
-        listener.setInputConnectionPort(conn.getInputConnectionPort());
+        conn.setLocalIP("127.0.0.1");
+        conn.setLocalPort("5005");
+        listener.setLocalPort(conn.getLocalPort());
         DroneStatePublisher pub = new DroneStatePublisher(conn);
         pub.subscribeNewObserver(obs);
-        listener.setInputConnectionPort(conn.getInputConnectionPort());
-        listener.setInputConnectionIP(conn.getInputConnectionIP());
+        listener.setLocalPort(conn.getLocalPort());
+        listener.setLocalIP(conn.getLocalIP());
 
         pub.notifyObservers();
     }

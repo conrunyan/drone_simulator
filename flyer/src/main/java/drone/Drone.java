@@ -19,8 +19,8 @@ public class Drone {
 
 	public boolean startConnection() throws Exception{
 		// make sure an IP address and Port have been set
-		if (this.connection.getInputConnectionIP().equals("N/A") || this.connection.getInputConnectionPort().equals("N/A")) {
-			System.out.printf("IP Address or Port have not been set. Current values: IP %s Port: %s\n", connection.getInputConnectionIP(), connection.getInputConnectionPort());
+		if (this.connection.getLocalIP().equals("N/A") || this.connection.getLocalPort().equals("N/A")) {
+			System.out.printf("IP Address or Port have not been set. Current values: IP %s Port: %s\n", connection.getLocalIP(), connection.getLocalPort());
 			return false;
 		}
 
@@ -59,17 +59,17 @@ public class Drone {
 		return this.connection.getConnectionStatus();
 	}
 	public String getDroneIP() {
-		return this.connection.getInputConnectionIP();
+		return this.connection.getLocalIP();
 	}
 	public String getDronePort() {
-		return this.connection.getInputConnectionPort();
+		return this.connection.getLocalPort();
 	}
 
 	public void setDroneIP(String ipAddr) throws Exception{
-		this.connection.setInputConnectionIP(ipAddr);
+		this.connection.setLocalIP(ipAddr);
 	}
 	public void setDronePort(String port) {
-		this.connection.setInputConnectionPort(port);
+		this.connection.setLocalPort(port);
 	}
 
 }

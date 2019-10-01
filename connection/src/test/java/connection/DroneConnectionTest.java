@@ -18,16 +18,16 @@ public class DroneConnectionTest {
         int realPort = 9000;
 
         // check default getters
-        assertEquals("Failed default getter - IP", "N/A", testDrone.getInputConnectionIP());
-        assertEquals("Failed default getter - Port", "N/A", testDrone.getInputConnectionPort());
+        assertEquals("Failed default getter - IP", "N/A", testDrone.getLocalIP());
+        assertEquals("Failed default getter - Port", "N/A", testDrone.getLocalPort());
 
-        testDrone.setInputConnectionIP(userInputIP);
-        testDrone.setInputConnectionPort(userInputPort);
+        testDrone.setLocalIP(userInputIP);
+        testDrone.setLocalPort(userInputPort);
 
-        assertEquals("Failed setter - IP", userInputIP, testDrone.getInputConnectionIP());
-        assertEquals("Failed setter - Port", userInputPort, testDrone.getInputConnectionPort());
-        assertEquals(realIP, testDrone.getConnectionIP());
-        assertEquals(realPort, testDrone.getConnectionPort());
+        assertEquals("Failed setter - IP", userInputIP, testDrone.getLocalIP());
+        assertEquals("Failed setter - Port", userInputPort, testDrone.getLocalPort());
+        assertEquals(realIP, testDrone.getLocalConnIP());
+        assertEquals(realPort, testDrone.getLocalConnPort());
 
     }
 
@@ -51,12 +51,12 @@ public class DroneConnectionTest {
         String testUserInput = "0.0.0.0";
 
         // test default IP case first
-        InetAddress result = testDrone.parseIPAddress();
+        InetAddress result = testDrone.parseIPAddress(testUserInput);
         assertArrayEquals(result.getAddress(), expectedIP.getAddress());
 
         // test user setting IP address
-        testDrone.setInputConnectionIP(testUserInput);
-        InetAddress result2 = testDrone.parseIPAddress();
+        testDrone.setLocalIP(testUserInput);
+        InetAddress result2 = testDrone.parseIPAddress(testUserInput);
         assertArrayEquals(result2.getAddress(), expectedIP2.getAddress());
     }
 
@@ -70,13 +70,13 @@ public class DroneConnectionTest {
         String msg = "command";
         Message outMsg = Message.decode(msg.getBytes(), 0, msg.length());
 
-        testDrone.setInputConnectionIP(userInputIP);
-        testDrone.setInputConnectionPort(userInputPort);
-        testDrone2.setInputConnectionIP(testDrone.getInputConnectionIP());
-        testDrone2.setInputConnectionPort("23549");
+        testDrone.setLocalIP(userInputIP);
+        testDrone.setLocalPort(userInputPort);
+        testDrone2.setRemoteIP(testDrone.getLocalIP());
+        testDrone2.setRemotePort(testDrone.getLocalConnPort());
 
-        testDrone.sendMessage(outMsg);
-        Message result = testDrone2.listenForMessage();
+        testDrone2.sendMessage(outMsg);
+        Message result = testDrone.listenForMessage();
 
 
         assertEquals("command", result.getMessageText());
@@ -97,8 +97,8 @@ public class DroneConnectionTest {
         Message outMsg = Message.decode(msg.getBytes(), 0, msg.length());
         Message outMsgCmd = Message.decode(cmd.getBytes(), 0, cmd.length());
 
-        testDrone.setInputConnectionIP(userInputIP);
-        testDrone.setInputConnectionPort(userInputPort);
+        testDrone.setLocalIP(userInputIP);
+        testDrone.setLocalPort(userInputPort);
 
         // try to send a message. result should be null, as it's not connected yet
         Message result = testDrone.communicateWithDrone(outMsg);

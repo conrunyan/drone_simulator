@@ -1,26 +1,28 @@
 package connection;
 
 import java.net.*;
-import java.nio.charset.StandardCharsets;
+
 import messages.Message;
 
 public class DroneConnection {
 
     // Class attributes
-    private String inputConnectionPort;
-    private String inputConnectionIP;
-    private int connectionPort;
-    private InetAddress connectionIP;
+    private String localPort;
+    private String localIP;
+    private int remoteConnPort;
+    private InetAddress remoteConnIP;
+    private int localConnPort;
+    private InetAddress localConnIP;
     private Boolean isConnected;
     private DatagramSocket udpClient;
     final private int MAX_NUM_OF_RETRIES = 3;
 
     public DroneConnection() throws Exception{
-        inputConnectionPort = "N/A";
-        inputConnectionIP = "N/A";
+        localPort = "N/A";
+        localIP = "N/A";
         isConnected = false;
         udpClient = new DatagramSocket(0);
-        udpClient.setSoTimeout(1000);
+        udpClient.setSoTimeout(3000);
     }
 
     // class public methods
@@ -30,12 +32,11 @@ public class DroneConnection {
         int tries = 0;
         Message reply = Message.decode("error".getBytes(), 0, "error".length());
         // can't send messages unless the drone is connected
-        if (isConnected || message.getMessageText().equals("command")) {
             while (tries < this.MAX_NUM_OF_RETRIES) {
                 sendMessage(message);
                 reply = listenForMessage();
 
-                if (reply != null && reply.equals("ok")) {
+                if (reply != null && reply.getMessageText().equals("ok")) {
                     if (message.getMessageText().equals("command")) {
                         this.isConnected = true;
                     }
@@ -43,10 +44,6 @@ public class DroneConnection {
                 }
                 tries++;
             }
-        }
-        else {
-            System.out.println("ERROR: Cannot send drone command " + message + " until drone is in command mode");
-        }
 
         return reply;
     }
@@ -56,11 +53,10 @@ public class DroneConnection {
         byte[] bytesToSend;
         DatagramPacket datagramPacket;
 
-
         bytesToSend = message.encode();
-        datagramPacket = new DatagramPacket(bytesToSend, bytesToSend.length, this.connectionIP, this.connectionPort);
+        datagramPacket = new DatagramPacket(bytesToSend, bytesToSend.length, this.remoteConnIP, this.remoteConnPort);
         udpClient.send(datagramPacket);
-//		System.out.println("Sent " + message + " message to " + this.connectionIP.toString() + ":" + this.connectionPort);
+		System.out.println("Sent " + message + " message to " + this.remoteConnIP.toString() + ":" + this.remoteConnPort);
     }
 
     public Message listenForMessage() throws Exception{
@@ -79,9 +75,11 @@ public class DroneConnection {
             datagramPacket = null;
         }
         if (datagramPacket != null) {
-//			System.out.println(String.format("Received %d bytes", datagramPacket.getLength()));
+			System.out.println(String.format("Received %d bytes", datagramPacket.getLength()));
             reply = Message.decode(bytesReceived, 0, bytesReceived.length);
-//			System.out.println("Messaged received: " + reply);
+            reply.setRemotePort(datagramPacket.getPort());
+            reply.setRemoteIPAddr(datagramPacket.getAddress());
+			System.out.println("Messaged received: " + reply);
         }
         return reply;
     }
@@ -99,38 +97,47 @@ public class DroneConnection {
         }
     }
 
-    public String getInputConnectionPort() {
-        return this.inputConnectionPort;
+    public String getLocalPort() {
+        return this.localPort;
     }
-    public String getInputConnectionIP() {
-        return this.inputConnectionIP;
+    public String getLocalIP() {
+        return this.localIP;
     }
-    public int getConnectionPort() { return connectionPort;	}
-    public InetAddress getConnectionIP() {
-        return connectionIP;
+    public int getLocalConnPort() { return udpClient.getLocalPort();	}
+    public InetAddress getLocalConnIP() {
+        return localConnIP;
     }
     public boolean getConnectionStatus() {
         return isConnected;
     }
 
-    public void setInputConnectionPort(String inputConnectionPort) {
-        this.inputConnectionPort = inputConnectionPort;
-        this.connectionPort = Integer.parseInt(inputConnectionPort);
+    public void setRemotePort(int remotePort) {
+        this.remoteConnPort = remotePort;
     }
-    public void setInputConnectionIP(String inputConnectionIP) throws Exception {
-        this.inputConnectionIP = inputConnectionIP;
-        this.connectionIP = parseIPAddress();
+
+    public void setRemoteIP(String remoteIP) throws Exception {
+        this.remoteConnIP = parseIPAddress(remoteIP);
+    }
+
+    public void setLocalPort(String localPort) {
+        this.localPort = localPort;
+        this.localConnPort = Integer.parseInt(localPort);
+    }
+
+    public void setLocalIP(String localIP) throws Exception {
+        this.localIP = localIP;
+        this.localConnIP = parseIPAddress(localIP);
     }
 
 
-    InetAddress parseIPAddress() throws UnknownHostException {
+    InetAddress parseIPAddress(String ipAddr) throws UnknownHostException {
         // check if user has input an IP address
-        if (inputConnectionIP.equals("N/A")) {
+        if (ipAddr.equals("N/A")) {
             System.out.println("User has not input an IP address. Using default '192.168.10.1'");
             return InetAddress.getByAddress(new byte[] { (byte) 192, (byte) 168, (byte) 10, (byte) 1});
         }
 
-        byte[] byteIPAddress = splitIP(this.inputConnectionIP);
+        byte[] byteIPAddress = splitIP(ipAddr);
         return InetAddress.getByAddress(byteIPAddress);
     }
 

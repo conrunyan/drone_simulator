@@ -17,8 +17,8 @@ public class DroneSimulator {
         final String simPort = "8889";
         simState = new DroneState();
         simConnection = new DroneConnection();
-        simConnection.setInputConnectionIP(simIPAddr);
-        simConnection.setInputConnectionPort(simPort);
+        simConnection.setLocalIP(simIPAddr);
+        simConnection.setLocalPort(simPort);
         simPublisher = new DroneStatePublisher(simConnection);
     }
 

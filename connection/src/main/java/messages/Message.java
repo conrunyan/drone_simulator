@@ -1,5 +1,6 @@
 package messages;
 
+import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -9,8 +10,8 @@ public abstract class Message {
     private boolean valid = false;
     String payload = null;
     ArrayList<String> payloadModifiers = new ArrayList<String>();
-    String remoteIPAddr = null;
-    String remotePort = null;
+    InetAddress remoteIPAddr = null;
+    int remotePort = 0;
     String matchPattern;
 
     public static Message decode(byte[] bytes, int offset, int length) {
@@ -75,6 +76,22 @@ public abstract class Message {
 
     public String getMessageText() {
         return getMessageText();
+    }
+
+    public InetAddress getRemoteIPAddr() {
+        return this.remoteIPAddr;
+    }
+
+    public int getRemotePort() {
+        return this.remotePort;
+    }
+
+    public void setRemoteIPAddr(InetAddress remoteIPAddr) {
+        this.remoteIPAddr = remoteIPAddr;
+    }
+
+    public void setRemotePort(int remotePort) {
+        this.remotePort = remotePort;
     }
 
     public ArrayList<String> getPayloadModifiers() {

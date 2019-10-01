@@ -1,10 +1,7 @@
 package missions;
 
-import missions.*;
 import org.junit.*;
-import utils.UdpTestServer;
 import connection.DroneConnection;
-import static org.junit.Assert.*;
 
 public class MissionsTest {
 
@@ -16,9 +13,9 @@ public class MissionsTest {
         MissionThree missThree = new MissionThree();
         DroneConnection drone = new DroneConnection();
 
-        drone.setInputConnectionIP("127.0.0.1");
-        drone.setInputConnectionPort("5005");
-        server.setInputConnectionIP(drone.getInputConnectionIP());
+        drone.setLocalIP("127.0.0.1");
+        drone.setLocalPort("5005");
+        server.setLocalIP(drone.getLocalIP());
         drone.connectToDrone();
 
         missOne.setTimeBetweenCommands(100);
