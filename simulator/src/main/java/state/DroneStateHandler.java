@@ -33,7 +33,7 @@ public abstract class DroneStateHandler {
                     payloadModifiers.get(1),
                     payloadModifiers.get(2)
             );
-            newState = DroneActionHandler.handleFlip(newState, args);
+            newState = DroneActionHandler.handleGo(newState, args);
         }
         else if (data.startsWith(Land.getKeyWord()))
             newState = DroneActionHandler.handleLand(newState);
@@ -46,7 +46,7 @@ public abstract class DroneStateHandler {
         else if (data.startsWith(Takeoff.getKeyWord()))
             newState = DroneActionHandler.handleTakeoff(newState);
         else if (data.startsWith(Up.getKeyWord()))
-            newState = DroneActionHandler.handleMoveRight(newState, payloadModifiers.get(0));
+            newState = DroneActionHandler.handleMoveUp(newState, payloadModifiers.get(0));
         else {
             System.out.println("ERROR: Invalid request to modify drone state: " + data);
         }

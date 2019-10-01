@@ -46,5 +46,39 @@ public class DroneStateHandlerTest {
         state = DroneStateHandler.handleMessage(cww, state);
         assertEquals(0, state.getOrientation());
 
+        state = DroneStateHandler.handleMessage(down, state);
+        assertEquals(-10, state.getPositionZ(), 0.01);
+
+        state = DroneStateHandler.handleMessage(flip, state);
+        assertEquals(-10, state.getPositionX(), 0.01);
+
+        state = DroneStateHandler.handleMessage(forward, state);
+        assertEquals(10, state.getPositionY(), 0.01);
+
+        state = DroneStateHandler.handleMessage(go, state);
+        assertEquals(0, state.getPositionX(), 0.01);
+        assertEquals(20, state.getPositionY(), 0.01);
+        assertEquals(0, state.getPositionZ(), 0.01);
+
+        state = DroneStateHandler.handleMessage(land, state);
+        assertFalse(state.hasTakenOff());
+
+        state = DroneStateHandler.handleMessage(takeoff, state);
+        assertTrue(state.hasTakenOff());
+
+        state = DroneStateHandler.handleMessage(left, state);
+        assertEquals(-10, state.getPositionX(), 0.01);
+
+        state = DroneStateHandler.handleMessage(right, state);
+        assertEquals(0, state.getPositionX(), 0.01);
+
+        DroneState tmpState = new DroneState(state);
+        state = DroneStateHandler.handleMessage(stop, state);
+        assertEquals(tmpState.getPositionX(), state.getPositionX(), 0.01);
+        assertEquals(tmpState.getPositionY(), state.getPositionY(), 0.01);
+        assertEquals(tmpState.getPositionZ(), state.getPositionZ(), 0.01);
+
+        state = DroneStateHandler.handleMessage(up, state);
+        assertEquals(10, state.getPositionZ(), 0.01);
     }
 }
