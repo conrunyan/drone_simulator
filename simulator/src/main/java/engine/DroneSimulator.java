@@ -14,11 +14,11 @@ public class DroneSimulator {
 
     public DroneSimulator() throws Exception{
         final String simIPAddr = "127.0.0.1";
-        final String simPort = "8889";
+        final Integer simPort = 8889;
         simState = new DroneState();
-        simConnection = new DroneConnection();
+        simConnection = new DroneConnection(simPort);
         simConnection.setLocalIP(simIPAddr);
-        simConnection.setLocalPort(simPort);
+        simConnection.setLocalPort(simPort.toString());
         simPublisher = new DroneStatePublisher(simConnection);
     }
 
@@ -26,11 +26,13 @@ public class DroneSimulator {
         return new DroneState(simState);
     }
 
-    public void startSimulator() {
+    public void runSimulator() {
         while (true) {
             try{
                 Message msg = simConnection.listenForMessage();
                 executeRequest(msg);
+                sendResponse(msg);
+                updateStatus();
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -43,15 +45,33 @@ public class DroneSimulator {
     void executeRequest(Message msg) {
         System.out.println("Drone Simulator: Received message " + msg);
         simState = DroneStateHandler.handleMessage(msg, simState);
-        updateStatus();
     }
 
     void sendResponse(Message msg) {
+        Message outMsg;
+        DroneConnection tmpConn = null;
+        try {
+            tmpConn = new DroneConnection();
+            tmpConn.setRemoteIP(msg.getRemoteIPAddr());
+            tmpConn.setRemotePort(msg.getRemotePort());
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
         if (msg.getMessageType().equals("failure")) {
-            // TODO: Send error message
+            outMsg = Message.decode("error".getBytes(), 0, "error".length());
         }
         else {
-            // TODO: Send ok message
+            outMsg = Message.decode("ok".getBytes(), 0, "ok".length());
+        }
+
+        try {
+            tmpConn.sendMessage(outMsg);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

@@ -25,6 +25,14 @@ public class DroneConnection {
         udpClient.setSoTimeout(3000);
     }
 
+    public DroneConnection(int listenPort) throws Exception{
+        localPort = "N/A";
+        localIP = "N/A";
+        isConnected = false;
+        udpClient = new DatagramSocket(listenPort);
+        udpClient.setSoTimeout(3000);
+    }
+
     // class public methods
     public Message communicateWithDrone(Message message) throws Exception{
 
@@ -117,6 +125,10 @@ public class DroneConnection {
 
     public void setRemoteIP(String remoteIP) throws Exception {
         this.remoteConnIP = parseIPAddress(remoteIP);
+    }
+
+    public void setRemoteIP(InetAddress remoteIP) throws Exception {
+        this.remoteConnIP = remoteIP;
     }
 
     public void setLocalPort(String localPort) {
