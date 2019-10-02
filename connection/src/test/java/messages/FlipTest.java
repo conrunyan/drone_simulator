@@ -29,13 +29,13 @@ public class FlipTest {
     }
     @Test
     public void getMessageTextU() {
-        Flip bq = new Flip("flip u");
-        assertEquals("flip u", bq.getMessageText());
+        Flip bq = new Flip("flip f");
+        assertEquals("flip f", bq.getMessageText());
     }
     @Test
     public void getMessageTextD() {
-        Flip bq = new Flip("flip d");
-        assertEquals("flip d", bq.getMessageText());
+        Flip bq = new Flip("flip b");
+        assertEquals("flip b", bq.getMessageText());
     }
 
     @Test

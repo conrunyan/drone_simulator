@@ -7,12 +7,12 @@ public class FlyFlip implements FlightBehavior {
 	private String flightDirection;
 
 	public FlyFlip(String direction) {
-		flightDirection = direction;
+		this.flightDirection = direction;
 	}
 
 	public Message flyInDirection() {
 		// flips
-		String command = "flip " + flightDirection;
+		String command = "flip " + this.flightDirection;
 		return Message.decode(command.getBytes(), 0, command.length());
 	}
 
