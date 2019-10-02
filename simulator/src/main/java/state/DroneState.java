@@ -31,7 +31,7 @@ public class DroneState {
     private Double accelerationX;
     private Double accelerationY;
     private Double accelerationZ;
-    private int orientation;
+    private Integer orientation;
 
     public DroneState() {
         resetState();
@@ -239,7 +239,7 @@ public class DroneState {
         return motorTime;
     }
 
-    public int getOrientation() { return orientation; }
+    public Integer getOrientation() { return orientation; }
 
     private void resetState() {
         videoStreamOn = false;

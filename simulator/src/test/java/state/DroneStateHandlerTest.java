@@ -42,10 +42,10 @@ public class DroneStateHandlerTest {
         state.setHasTakenOff(true);
 
         state = DroneStateHandler.handleMessage(cw, state);
-        assertEquals(10, state.getOrientation());
+        assertEquals(10, (int)state.getOrientation());
 
         state = DroneStateHandler.handleMessage(cww, state);
-        assertEquals(0, state.getOrientation());
+        assertEquals(0, (int)state.getOrientation());
 
         state = DroneStateHandler.handleMessage(down, state);
         assertEquals(-10, state.getPositionZ(), 0.01);

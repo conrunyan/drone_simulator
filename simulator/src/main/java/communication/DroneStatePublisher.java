@@ -50,7 +50,10 @@ public class DroneStatePublisher {
             simState.getPositionZ(),
             simState.getOrientation()
         );
-
+        for (DroneObserver obs : observers) {
+            obs.updateState(simState);
+        }
+        // also send out UDP message with new status
         publisherConnection.sendMessage(newStatus);
     }
 

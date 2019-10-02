@@ -30,7 +30,7 @@ public class Status extends Message {
                   Integer lowTemperature, Integer highTemperature, Integer flightDistance, Integer height,
                   Integer batteryPercentage, Double barometerMeasurement, Integer motorTime,
                   Double accelerationX, Double accelerationY, Double accelerationZ,
-                  Double positionX, Double positionY, Double positionZ, int orientation) {
+                  Double positionX, Double positionY, Double positionZ, Integer orientation) {
         this.pitch = pitch;
         this.roll = roll;
         this.yaw = yaw;
@@ -165,7 +165,7 @@ public class Status extends Message {
             return;
 
         String[] stateFields = data.trim().split(";");
-        if (stateFields.length!=21) {
+        if (stateFields.length!=25) {
             return;
         }
 
@@ -185,6 +185,10 @@ public class Status extends Message {
         accelerationX = parseDouble("agx", stateFields[18]);
         accelerationY = parseDouble("agy", stateFields[19]);
         accelerationZ = parseDouble("agz", stateFields[20]);
+        positionX = parseDouble("posx", stateFields[21]);
+        positionY = parseDouble("posy", stateFields[22]);
+        positionZ = parseDouble("posz", stateFields[23]);
+        orientation = parseInteger("ornt", stateFields[24]);
     }
 
     private Integer parseInteger(String expectedLabel, String data) {

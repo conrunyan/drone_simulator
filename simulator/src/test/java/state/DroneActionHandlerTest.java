@@ -38,7 +38,7 @@ public class DroneActionHandlerTest {
 
         DroneState newState = DroneActionHandler.handleCw(state, "100");
 
-        assertEquals(expected, newState.getOrientation());
+        assertEquals(expected, (int)newState.getOrientation());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class DroneActionHandlerTest {
 
         DroneState newState = DroneActionHandler.handleCww(state, "100");
 
-        assertEquals(expected, newState.getOrientation());
+        assertEquals(expected, (int)newState.getOrientation());
     }
 
     @Test
