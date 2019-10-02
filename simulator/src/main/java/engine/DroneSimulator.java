@@ -3,6 +3,7 @@ package engine;
 import communication.DroneStatePublisher;
 import connection.DroneConnection;
 import messages.Message;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import state.DroneState;
 import state.DroneStateHandler;
 
@@ -12,14 +13,19 @@ public class DroneSimulator {
     private DroneConnection simConnection;
     private DroneStatePublisher simPublisher;
 
-    public DroneSimulator() throws Exception{
+    public DroneSimulator() {
         final String simIPAddr = "127.0.0.1";
         final Integer simPort = 8889;
         simState = new DroneState();
-        simConnection = new DroneConnection(simPort);
-        simConnection.setLocalIP(simIPAddr);
-        simConnection.setLocalPort(simPort.toString());
-        simPublisher = new DroneStatePublisher(simConnection);
+        try {
+            simConnection = new DroneConnection(simPort);
+            simConnection.setLocalIP(simIPAddr);
+            simConnection.setLocalPort(simPort.toString());
+            simPublisher = new DroneStatePublisher(simConnection);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public DroneState getSimState() {
@@ -29,6 +35,7 @@ public class DroneSimulator {
     public void runSimulator() {
         while (true) {
             try{
+                System.out.println("Waiting for input...");
                 Message msg = simConnection.listenForMessage();
                 executeRequest(msg);
                 sendResponse(msg);
