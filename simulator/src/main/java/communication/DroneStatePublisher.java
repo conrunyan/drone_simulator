@@ -16,8 +16,8 @@ public class DroneStatePublisher {
 
     public DroneStatePublisher(DroneConnection simConnect) throws Exception {
         publisherConnection = new DroneConnection();
-        publisherConnection.setLocalIP(simConnect.getLocalIP());
-        publisherConnection.setLocalPort("8890");
+        publisherConnection.setRemoteIP(simConnect.getLocalIP());
+        publisherConnection.setRemotePort(8890);
 
         observers = new ArrayList<DroneObserver>();
         simState = new DroneState();
@@ -44,12 +44,14 @@ public class DroneStatePublisher {
             simState.getMotorTime(),
             simState.getAccelerationX(),
             simState.getAccelerationY(),
-            simState.getAccelerationZ()
+            simState.getAccelerationZ(),
+            simState.getPositionX(),
+            simState.getPositionY(),
+            simState.getPositionZ(),
+            simState.getOrientation()
         );
-        for (DroneObserver obs : observers) {
 
-            publisherConnection.sendMessage(newStatus);
-        }
+        publisherConnection.sendMessage(newStatus);
     }
 
     public void updatePublisherState(DroneState state) {

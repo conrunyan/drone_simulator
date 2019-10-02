@@ -1,23 +1,30 @@
 package drone;
 
+import messages.Message;
+import messages.Status;
 import missions.*;
 import connection.DroneConnection;
+import state.DroneState;
 
-public class Drone {
+public class Drone implements Runnable {
 
 	private MissionOne missOne;
 	private MissionTwo missTwo;
 	private MissionThree missThree;
 	private DroneConnection connection;
+	private DroneConnection statusConnection;
+	private volatile DroneState droneState;
+	private Thread statusThread;
 
 	public Drone() throws Exception{
 		this.connection = new DroneConnection();
+		this.statusConnection = new DroneConnection(8890);
 		this.missOne = new MissionOne();
 		this.missTwo = new MissionTwo();
 		this.missThree = new MissionThree();
 	}
 
-	public boolean startConnection() throws Exception{
+	public boolean startConnection() throws Exception {
 		// make sure an IP address and Port have been set
 		if (this.connection.getLocalIP().equals("N/A") || this.connection.getLocalPort().equals("N/A")) {
 			System.out.printf("IP Address or Port have not been set. Current values: IP %s Port: %s\n", connection.getLocalIP(), connection.getLocalPort());
@@ -25,7 +32,34 @@ public class Drone {
 		}
 
 		this.connection.connectToDrone();
+
+		// start up listener thread
+		statusThread = new Thread(this, "drone_status");
+		statusThread.start();
+
 		return this.connection.getConnectionStatus();
+	}
+
+	@Override
+	public void run() {
+		try {
+			listenForDroneUpdates();
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	void listenForDroneUpdates() throws Exception {
+
+		System.out.println("In drone state listener...");
+		while (this.connection.getConnectionStatus()) {
+			Message msg = this.statusConnection.listenForMessage();
+			if (msg.getMessageType().equals("status")) {
+				System.out.println("Updating status...: " + msg.getMessageText());
+				this.droneState.updateFlyingInfo((Status)msg);
+			}
+		}
 	}
 
 	public void flyMission(int missionID) throws Exception {
@@ -64,6 +98,7 @@ public class Drone {
 	public String getDronePort() {
 		return this.connection.getLocalPort();
 	}
+
 
 	public void setDroneIP(String ipAddr) throws Exception{
 		this.connection.setLocalIP(ipAddr);

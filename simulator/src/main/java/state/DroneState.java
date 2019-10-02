@@ -1,6 +1,8 @@
 package state;
 
 import java.util.Date;
+
+import messages.Message;
 import messages.Status;
 
 public class DroneState {
@@ -129,6 +131,11 @@ public class DroneState {
         accelerationX = status.getAccelerationX();
         accelerationY = status.getAccelerationY();
         accelerationZ = status.getAccelerationZ();
+        accelerationX = status.getPositionX();
+        accelerationY = status.getPositionY();
+        accelerationZ = status.getPositionZ();
+        orientation = status.getOrientation();
+
 
         stateTimestamp = new Date();
     }

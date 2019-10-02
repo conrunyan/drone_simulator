@@ -21,11 +21,16 @@ public class Status extends Message {
     private Double accelerationX;
     private Double accelerationY;
     private Double accelerationZ;
+    private Double positionX;
+    private Double positionY;
+    private Double positionZ;
+    private int orientation;
 
     public Status(Integer pitch, Integer roll, Integer yaw, Integer speedX, Integer speedY, Integer speedZ,
                   Integer lowTemperature, Integer highTemperature, Integer flightDistance, Integer height,
                   Integer batteryPercentage, Double barometerMeasurement, Integer motorTime,
-                  Double accelerationX, Double accelerationY, Double accelerationZ) {
+                  Double accelerationX, Double accelerationY, Double accelerationZ,
+                  Double positionX, Double positionY, Double positionZ, int orientation) {
         this.pitch = pitch;
         this.roll = roll;
         this.yaw = yaw;
@@ -42,6 +47,10 @@ public class Status extends Message {
         this.accelerationX = accelerationX;
         this.accelerationY = accelerationY;
         this.accelerationZ = accelerationZ;
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.positionZ = positionZ;
+        this.orientation = orientation;
     }
 
     public Status(String data) {
@@ -56,14 +65,16 @@ public class Status extends Message {
                         "tof:%s;h:%s;"+
                         "bat:%s;baro:%s;"+
                         "time:%s;"+
-                        "agx:%s;agy:%s;agz:%s",
+                        "agx:%s;agy:%s;agz:%s;"+
+                        "posx:%s;posy:%s;posz:%s;ornt:%s",
                 StringUtils.formatInteger(pitch), StringUtils.formatInteger(roll), StringUtils.formatInteger(yaw),
                 StringUtils.formatInteger(speedX), StringUtils.formatInteger(speedY), StringUtils.formatInteger(speedZ),
                 StringUtils.formatInteger(lowTemperature), StringUtils.formatInteger(highTemperature),
                 StringUtils.formatInteger(flightDistance), StringUtils.formatInteger(height),
                 StringUtils.formatInteger(batteryPercentage), StringUtils.formatDouble(barometerMeasurement),
                 StringUtils.formatInteger(motorTime),
-                StringUtils.formatDouble(accelerationX), StringUtils.formatDouble(accelerationY), StringUtils.formatDouble(accelerationZ));
+                StringUtils.formatDouble(accelerationX), StringUtils.formatDouble(accelerationY), StringUtils.formatDouble(accelerationZ),
+                StringUtils.formatDouble(positionX), StringUtils.formatDouble(positionY), StringUtils.formatDouble(positionZ), StringUtils.formatInteger(orientation));
     }
 
     @Override
@@ -131,6 +142,22 @@ public class Status extends Message {
 
     public Integer getMotorTime() {
         return motorTime;
+    }
+
+    public Double getPositionX() {
+        return positionX;
+    }
+
+    public Double getPositionY() {
+        return positionY;
+    }
+
+    public Double getPositionZ() {
+        return positionZ;
+    }
+
+    public int getOrientation() {
+        return orientation;
     }
 
     private void parseData(String data) {
