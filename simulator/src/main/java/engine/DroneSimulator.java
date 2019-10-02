@@ -13,9 +13,9 @@ public class DroneSimulator {
     private DroneConnection simConnection;
     private DroneStatePublisher simPublisher;
 
-    public DroneSimulator() {
+    public DroneSimulator(Integer port) {
         final String simIPAddr = "127.0.0.1";
-        final Integer simPort = 8889;
+        final Integer simPort = port;
         simState = new DroneState();
         try {
             simConnection = new DroneConnection(simPort);

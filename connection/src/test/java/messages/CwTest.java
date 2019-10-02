@@ -8,7 +8,7 @@ public class CwTest {
 
     @Test
     public void getKeyWord() {
-        assertEquals("cw", Cw.getKeyWord());
+        assertEquals("cw ", Cw.getKeyWord());
     }
 
     @Test

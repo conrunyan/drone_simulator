@@ -13,7 +13,7 @@ public class Drone implements Runnable {
 	private MissionThree missThree;
 	private DroneConnection connection;
 	private DroneConnection statusConnection;
-	private volatile DroneState droneState;
+	private DroneState droneState;
 	private Thread statusThread;
 
 	public Drone() throws Exception{

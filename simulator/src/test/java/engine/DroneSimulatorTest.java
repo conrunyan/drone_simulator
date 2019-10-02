@@ -13,7 +13,7 @@ public class DroneSimulatorTest {
 
     @Test
     public void testExecuteRequest() throws Exception{
-        DroneSimulator sim = new DroneSimulator();
+        DroneSimulator sim = new DroneSimulator(6000);
         DroneState tmpState = sim.getSimState();
         Message msg = Message.decode("command".getBytes(), 0, "command".length());
 
@@ -24,7 +24,7 @@ public class DroneSimulatorTest {
 
     @Test
     public void testExecuteRequestBad() throws Exception {
-        DroneSimulator sim = new DroneSimulator();
+        DroneSimulator sim = new DroneSimulator(6001);
         DroneState tmpState = sim.getSimState();
         Message msg = Message.decode("commandBAD".getBytes(), 0, "commandBAD".length());
 
@@ -35,7 +35,7 @@ public class DroneSimulatorTest {
 
     @Test
     public void testSendResponse() throws Exception {
-        DroneSimulator sim = new DroneSimulator();
+        DroneSimulator sim = new DroneSimulator(6002);
         DroneConnection receiver = new DroneConnection();
         Message msg = Message.decode("command".getBytes(), 0, "command".length());
         msg.setRemoteIPAddr(InetAddress.getByAddress(new byte[] { (byte) 127, (byte) 0, (byte) 0, (byte) 1}));

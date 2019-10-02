@@ -1,19 +1,24 @@
 package drone;
 
+import engine.DroneSimulator;
+import engine.DroneSimulatorTestRunner;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import utils.UdpTestServer;
 
 public class DroneTest {
 
+
+
     @Test
-    public void testDroneStartConnection() throws Exception{
-        UdpTestServer serv = new UdpTestServer("5005");
+    public void testDroneStartConnection() throws Exception {
+        DroneSimulatorTestRunner sim = new DroneSimulatorTestRunner(5007);
         Drone testDrone = new Drone();
         String ipAddr = "127.0.0.1";
-        String port = "5005";
+        String port = "5007";
 
-        serv.runServer();
+        Thread t = new Thread(sim, "drone_start_conn_test");
+        t.start();
 
         // test attempting to connect without setting IP address/Port
         assertFalse(testDrone.startConnection());
@@ -25,26 +30,28 @@ public class DroneTest {
         assertTrue(testDrone.startConnection());
         assertTrue(testDrone.getConnectionStatus());
 
-        serv.killServer();
+        sim.killThread();
     }
 
     @Test
     public void testDroneMissions() throws Exception {
-        UdpTestServer serv = new UdpTestServer("5005");
+        DroneSimulatorTestRunner sim = new DroneSimulatorTestRunner(5010);
         Drone testDrone = new Drone();
         String ipAddr = "127.0.0.1";
-        String port = "5005";
+        String port = "5010";
+
+        Thread t = new Thread(sim, "drone_missions_test_thread");
+        t.start();
 
         // test attempting to connect without setting IP address/Port
         testDrone.setDroneIP(ipAddr);
         testDrone.setDronePort(port);
-        serv.runServer();
         testDrone.startConnection();
 
         testDrone.flyMission(1);
         testDrone.flyMission(4);
 
-        serv.killServer();
+        sim.killThread();
     }
 
     @Test
