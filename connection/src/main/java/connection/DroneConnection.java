@@ -30,7 +30,7 @@ public class DroneConnection {
         localIP = "N/A";
         isConnected = false;
         udpClient = new DatagramSocket(listenPort);
-        udpClient.setSoTimeout(1000);
+//        udpClient.setSoTimeout(1000);
     }
 
     // class public methods

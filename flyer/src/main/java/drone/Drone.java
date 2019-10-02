@@ -67,9 +67,11 @@ public class Drone {
 
 	public void setDroneIP(String ipAddr) throws Exception{
 		this.connection.setLocalIP(ipAddr);
+		this.connection.setRemoteIP(ipAddr);
 	}
 	public void setDronePort(String port) {
 		this.connection.setLocalPort(port);
+		this.connection.setRemotePort(Integer.parseInt(port));
 	}
 
 }
