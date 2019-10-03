@@ -18,7 +18,15 @@ public class Drone implements Runnable {
 
 	public Drone() throws Exception{
 		this.connection = new DroneConnection();
-		this.statusConnection = new DroneConnection(8890);
+		this.statusConnection = new DroneConnection(0);
+		this.missOne = new MissionOne();
+		this.missTwo = new MissionTwo();
+		this.missThree = new MissionThree();
+	}
+
+	public Drone(int port) throws Exception{
+		this.connection = new DroneConnection();
+		this.statusConnection = new DroneConnection(port);
 		this.missOne = new MissionOne();
 		this.missTwo = new MissionTwo();
 		this.missThree = new MissionThree();

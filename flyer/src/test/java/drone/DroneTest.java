@@ -12,10 +12,10 @@ public class DroneTest {
 
     @Test
     public void testDroneStartConnection() throws Exception {
-        DroneSimulatorTestRunner sim = new DroneSimulatorTestRunner(5007);
+        DroneSimulatorTestRunner sim = new DroneSimulatorTestRunner(54321);
         Drone testDrone = new Drone();
         String ipAddr = "127.0.0.1";
-        String port = "5007";
+        String port = "54321";
 
         Thread t = new Thread(sim, "drone_start_conn_test");
         t.start();

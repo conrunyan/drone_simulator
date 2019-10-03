@@ -3,6 +3,8 @@ package missions;
 import connection.DroneConnection;
 import flight.*;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class MissionOne extends Mission {
 
@@ -28,7 +30,12 @@ public class MissionOne extends Mission {
 			System.out.println("\tExecuting flight pattern: " + fb.flyInDirection());
 			// Should test this with a dummy drone connection that receives the flight behavior and returns a message
 			droneConnection.communicateWithDrone(fb.flyInDirection());
-			Thread.sleep(timeBetweenCommands);
+			try {
+				Thread.sleep(this.timeBetweenCommands);
+			}
+			catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 

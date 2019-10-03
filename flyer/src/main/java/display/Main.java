@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/Display.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/Display.fxml"));
         Parent gui = loader.load();
 
         Scene scene = new Scene(gui);

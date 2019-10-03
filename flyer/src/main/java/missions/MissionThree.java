@@ -27,7 +27,12 @@ public class MissionThree extends Mission {
 		for (FlightBehavior fb : this.flightBehaviors) {
 			System.out.println("\tExecuting flight pattern: " + fb.flyInDirection());
 			droneConnection.communicateWithDrone(fb.flyInDirection());
-			Thread.sleep(timeBetweenCommands);
+			try {
+				Thread.sleep(this.timeBetweenCommands);
+			}
+			catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
