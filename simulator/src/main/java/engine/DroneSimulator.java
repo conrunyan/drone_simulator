@@ -12,6 +12,7 @@ public class DroneSimulator {
     private DroneState simState;
     private DroneConnection simConnection;
     private DroneStatePublisher simPublisher;
+    private boolean running = false;
 
     public DroneSimulator(Integer port) {
         final String simIPAddr = "127.0.0.1";
@@ -33,7 +34,8 @@ public class DroneSimulator {
     }
 
     public void runSimulator() {
-        while (true) {
+        running = true;
+        while (running) {
             try{
                 System.out.println("Waiting for input...");
                 Message msg = simConnection.listenForMessage();
@@ -45,6 +47,10 @@ public class DroneSimulator {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    void stopSimulator() {
+        running = false;
     }
 
     // parses message and handles updating the state as
