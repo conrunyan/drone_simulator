@@ -131,9 +131,9 @@ public class DroneState {
         this.accelerationX = status.getAccelerationX();
         this.accelerationY = status.getAccelerationY();
         this.accelerationZ = status.getAccelerationZ();
-        this.accelerationX = status.getPositionX();
-        this.accelerationY = status.getPositionY();
-        this.accelerationZ = status.getPositionZ();
+        this.positionX = status.getPositionX();
+        this.positionY = status.getPositionY();
+        this.positionZ = status.getPositionZ();
         this.orientation = status.getOrientation();
 
 

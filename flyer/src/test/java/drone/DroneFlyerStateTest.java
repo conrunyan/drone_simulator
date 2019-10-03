@@ -32,8 +32,5 @@ public class DroneFlyerStateTest {
         double result = flyer.getDroneState().getAccelerationY();
 
         assertEquals(expectedAgy, result, 0.01);
-
-
-
     }
 }

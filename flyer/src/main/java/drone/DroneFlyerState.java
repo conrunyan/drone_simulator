@@ -5,7 +5,11 @@ import state.DroneState;
 
 public class DroneFlyerState {
     private static DroneFlyerState instance = null;
-    private DroneState flyerState = new DroneState();
+    private DroneState flyerState;
+
+    private DroneFlyerState() {
+        flyerState = new DroneState();
+    }
 
     public static DroneFlyerState getInstance() {
         if (instance == null) {
@@ -15,7 +19,7 @@ public class DroneFlyerState {
     }
 
     public DroneState getDroneState() {
-        return flyerState;
+        return this.flyerState;
     }
 
     public void updateState(Status status) {

@@ -6,24 +6,15 @@ import missions.*;
 import connection.DroneConnection;
 import state.DroneState;
 
-public class Drone implements Runnable {
+public class Drone {
 
 	private MissionOne missOne;
 	private MissionTwo missTwo;
 	private MissionThree missThree;
 	private DroneConnection connection;
-	private DroneConnection statusConnection;
-	private Thread statusThread;
 	private DroneFlyerState state;
 
 	public Drone() throws Exception {
-		this.statusConnection = new DroneConnection(0);
-		initDrone();
-
-	}
-
-	public Drone(int port) throws Exception {
-		this.statusConnection = new DroneConnection(port);
 		initDrone();
 	}
 
@@ -44,33 +35,7 @@ public class Drone implements Runnable {
 
 		this.connection.connectToDrone();
 
-		// start up listener thread
-		statusThread = new Thread(this, "drone_status");
-		statusThread.start();
-
 		return this.connection.getConnectionStatus();
-	}
-
-	@Override
-	public void run() {
-		try {
-			listenForDroneUpdates();
-		}
-		catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	void listenForDroneUpdates() throws Exception {
-
-		System.out.println("In drone state listener...");
-		while (this.connection.getConnectionStatus()) {
-			Message msg = this.statusConnection.listenForMessage();
-			if (msg.getMessageType().equals("status")) {
-				System.out.println("Updating status...: " + msg.getMessageText());
-				this.state.updateState((Status)msg);
-			}
-		}
 	}
 
 	public void flyMission(int missionID) throws Exception {
