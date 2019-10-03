@@ -13,23 +13,26 @@ public class Drone implements Runnable {
 	private MissionThree missThree;
 	private DroneConnection connection;
 	private DroneConnection statusConnection;
-	private DroneState droneState;
 	private Thread statusThread;
+	private DroneFlyerState state;
 
-	public Drone() throws Exception{
-		this.connection = new DroneConnection();
+	public Drone() throws Exception {
 		this.statusConnection = new DroneConnection(0);
-		this.missOne = new MissionOne();
-		this.missTwo = new MissionTwo();
-		this.missThree = new MissionThree();
+		initDrone();
+
 	}
 
-	public Drone(int port) throws Exception{
-		this.connection = new DroneConnection();
+	public Drone(int port) throws Exception {
 		this.statusConnection = new DroneConnection(port);
+		initDrone();
+	}
+
+	private void initDrone() throws Exception {
+		this.connection = new DroneConnection();
 		this.missOne = new MissionOne();
 		this.missTwo = new MissionTwo();
 		this.missThree = new MissionThree();
+		state = DroneFlyerState.getInstance();
 	}
 
 	public boolean startConnection() throws Exception {
@@ -65,7 +68,7 @@ public class Drone implements Runnable {
 			Message msg = this.statusConnection.listenForMessage();
 			if (msg.getMessageType().equals("status")) {
 				System.out.println("Updating status...: " + msg.getMessageText());
-				this.droneState.updateFlyingInfo((Status)msg);
+				this.state.updateState((Status)msg);
 			}
 		}
 	}

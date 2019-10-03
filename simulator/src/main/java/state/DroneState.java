@@ -115,29 +115,29 @@ public class DroneState {
             return;
         }
 
-        pitch = status.getPitch();
-        roll = status.getRoll();
-        yaw = status.getYaw();
-        speedX = status.getSpeedX();
-        speedY = status.getSpeedY();
-        speedZ = status.getSpeedZ();
-        lowTemperature = status.getLowTemperature();
-        highTemperature = status.getHighTemperature();
-        flightDistance = status.getFlightDistance();
-        height = status.getHeight();
-        batteryPercentage = status.getBatteryPercentage();
-        barometerMeasurement = status.getBarometerMeasurement();
-        motorTime = status.getMotorTime();
-        accelerationX = status.getAccelerationX();
-        accelerationY = status.getAccelerationY();
-        accelerationZ = status.getAccelerationZ();
-        accelerationX = status.getPositionX();
-        accelerationY = status.getPositionY();
-        accelerationZ = status.getPositionZ();
-        orientation = status.getOrientation();
+        this.pitch = status.getPitch();
+        this.roll = status.getRoll();
+        this.yaw = status.getYaw();
+        this.speedX = status.getSpeedX();
+        this.speedY = status.getSpeedY();
+        this.speedZ = status.getSpeedZ();
+        this.lowTemperature = status.getLowTemperature();
+        this.highTemperature = status.getHighTemperature();
+        this.flightDistance = status.getFlightDistance();
+        this.height = status.getHeight();
+        this.batteryPercentage = status.getBatteryPercentage();
+        this.barometerMeasurement = status.getBarometerMeasurement();
+        this.motorTime = status.getMotorTime();
+        this.accelerationX = status.getAccelerationX();
+        this.accelerationY = status.getAccelerationY();
+        this.accelerationZ = status.getAccelerationZ();
+        this.accelerationX = status.getPositionX();
+        this.accelerationY = status.getPositionY();
+        this.accelerationZ = status.getPositionZ();
+        this.orientation = status.getOrientation();
 
 
-        stateTimestamp = new Date();
+        this.stateTimestamp = new Date();
     }
 
     public Date getStateTimestamp() {
