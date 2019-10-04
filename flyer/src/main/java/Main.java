@@ -18,7 +18,7 @@ public class Main {
         while (menu.getRunMenu()) {
             menu.menuCycle();
         }
-        
+
         t.interrupt();
     }
 }

@@ -3,13 +3,12 @@ package engine;
 import communication.DroneStatePublisher;
 import connection.DroneConnection;
 import messages.Message;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import state.DroneState;
 import state.DroneStateHandler;
 
 public class DroneSimulator {
 
-    private DroneState simState;
+    private DroneSimulatorState simState;
     private DroneConnection simConnection;
     private DroneStatePublisher simPublisher;
     private boolean running = false;
@@ -17,7 +16,7 @@ public class DroneSimulator {
     public DroneSimulator(Integer port) {
         final String simIPAddr = "127.0.0.1";
         final Integer simPort = port;
-        simState = new DroneState();
+        simState = DroneSimulatorState.getInstance();
         try {
             simConnection = new DroneConnection(simPort);
             simConnection.setLocalIP(simIPAddr);
@@ -30,7 +29,7 @@ public class DroneSimulator {
     }
 
     public DroneState getSimState() {
-        return new DroneState(simState);
+        return new DroneState(simState.getDroneState());
     }
 
     public void runSimulator() {
@@ -57,7 +56,7 @@ public class DroneSimulator {
     // needed.
     void executeRequest(Message msg) {
         System.out.println("Drone Simulator: Received message " + msg);
-        simState = DroneStateHandler.handleMessage(msg, simState);
+        simState.updateState(DroneStateHandler.handleMessage(msg, simState.getDroneState()));
     }
 
     void sendResponse(Message msg) {
@@ -91,7 +90,7 @@ public class DroneSimulator {
     // triggers event, causing drone state publisher
     // to notify observers and update info
     private void updateStatus() {
-        simPublisher.updatePublisherState(simState);
+        simPublisher.updatePublisherState(simState.getDroneState());
         try {
             simPublisher.notifyObservers();
         }
