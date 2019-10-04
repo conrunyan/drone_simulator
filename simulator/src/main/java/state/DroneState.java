@@ -33,6 +33,7 @@ public class DroneState {
     private Double accelerationZ;
     private Integer orientation;
     private Integer batteryDrainDelta;
+    private final Integer maxTemperature = 75;
 
     public DroneState() {
         resetState();
@@ -248,6 +249,8 @@ public class DroneState {
 
     public Integer getBatteryDrainDelta() { return batteryDrainDelta; }
 
+    public Integer getMaxTemperature() { return maxTemperature; }
+
     void drainBattery() {
         batteryPercentage -= batteryDrainDelta;
         if (batteryPercentage < 0) {
@@ -274,7 +277,7 @@ public class DroneState {
         speedY = 0;
         speedZ = 0;
         lowTemperature = 0;
-        highTemperature = 75;
+        highTemperature = 60;
         flightDistance = 0;
         height = 0;
         batteryPercentage = 100;

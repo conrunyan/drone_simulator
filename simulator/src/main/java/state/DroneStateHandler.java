@@ -16,6 +16,17 @@ public abstract class DroneStateHandler {
             return newState;
         }
 
+        // special conditions for drone behavior
+        if (state.lowBattery()) {
+            newState = DroneActionHandler.handleLand(newState);
+            return newState;
+        }
+
+        if (state.getHighTemperature() >= state.getMaxTemperature()) {
+            newState = DroneActionHandler.handleLand(newState);
+            return newState;
+        }
+
         if (data.startsWith(Back.getKeyWord()))
             newState = DroneActionHandler.handleMoveBack(newState, payloadModifiers.get(0));
         else if (data.startsWith(Command.getKeyWord()))
