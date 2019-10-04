@@ -1,6 +1,7 @@
 package communication;
 
 import connection.DroneConnection;
+import engine.DroneSimulatorState;
 import messages.Status;
 import state.DroneState;
 
@@ -8,19 +9,36 @@ import java.util.ArrayList;
 
 // watches drone state, and updates observers upon
 // state update
-public class DroneStatePublisher {
+public class DroneStatePublisher implements Runnable {
 
     private DroneConnection publisherConnection;
-    private DroneState simState;
+    private DroneSimulatorState simState;
     private ArrayList<DroneObserver> observers;
+    private boolean running;
+    private final int timeBetweenNotifications; // in milliseconds
 
-    public DroneStatePublisher(DroneConnection simConnect) throws Exception {
+    public DroneStatePublisher() throws Exception {
         publisherConnection = new DroneConnection();
-        publisherConnection.setRemoteIP(simConnect.getLocalIP());
+        publisherConnection.setRemoteIP("127.0.0.1");
         publisherConnection.setRemotePort(8890);
 
-        observers = new ArrayList<DroneObserver>();
-        simState = new DroneState();
+        observers = new ArrayList<>();
+        running = true;
+        simState = DroneSimulatorState.getInstance();
+        timeBetweenNotifications = 500;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (running) {
+                notifyObservers();
+                Thread.sleep(timeBetweenNotifications);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public int getObserverCount() {
@@ -28,37 +46,34 @@ public class DroneStatePublisher {
     }
 
     public void notifyObservers() throws Exception{
+        DroneState tmpState = simState.getDroneState();
         Status newStatus = new Status(
-            simState.getPitch(),
-            simState.getRoll(),
-            simState.getYaw(),
-            simState.getSpeedX(),
-            simState.getSpeedY(),
-            simState.getSpeedZ(),
-            simState.getLowTemperature(),
-            simState.getHighTemperature(),
-            simState.getFlightDistance(),
-            simState.getHeight(),
-            simState.getBatteryPercentage(),
-            simState.getBarometerMeasurement(),
-            simState.getMotorTime(),
-            simState.getAccelerationX(),
-            simState.getAccelerationY(),
-            simState.getAccelerationZ(),
-            simState.getPositionX(),
-            simState.getPositionY(),
-            simState.getPositionZ(),
-            simState.getOrientation()
+            tmpState.getPitch(),
+            tmpState.getRoll(),
+            tmpState.getYaw(),
+            tmpState.getSpeedX(),
+            tmpState.getSpeedY(),
+            tmpState.getSpeedZ(),
+            tmpState.getLowTemperature(),
+            tmpState.getHighTemperature(),
+            tmpState.getFlightDistance(),
+            tmpState.getHeight(),
+            tmpState.getBatteryPercentage(),
+            tmpState.getBarometerMeasurement(),
+            tmpState.getMotorTime(),
+            tmpState.getAccelerationX(),
+            tmpState.getAccelerationY(),
+            tmpState.getAccelerationZ(),
+            tmpState.getPositionX(),
+            tmpState.getPositionY(),
+            tmpState.getPositionZ(),
+            tmpState.getOrientation()
         );
         for (DroneObserver obs : observers) {
-            obs.updateState(simState);
+            obs.updateState(tmpState);
         }
         // also send out UDP message with new status
         publisherConnection.sendMessage(newStatus);
-    }
-
-    public void updatePublisherState(DroneState state) {
-        simState = state;
     }
 
     public void subscribeNewObserver(DroneObserver newObs) {

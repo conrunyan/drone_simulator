@@ -10,18 +10,15 @@ public class DroneSimulator {
 
     private DroneSimulatorState simState;
     private DroneConnection simConnection;
-    private DroneStatePublisher simPublisher;
     private boolean running = false;
 
     public DroneSimulator(Integer port) {
         final String simIPAddr = "127.0.0.1";
-        final Integer simPort = port;
         simState = DroneSimulatorState.getInstance();
         try {
-            simConnection = new DroneConnection(simPort);
+            simConnection = new DroneConnection(port);
             simConnection.setLocalIP(simIPAddr);
-            simConnection.setLocalPort(simPort.toString());
-            simPublisher = new DroneStatePublisher(simConnection);
+            simConnection.setLocalPort(port.toString());
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -40,7 +37,6 @@ public class DroneSimulator {
                 Message msg = simConnection.listenForMessage();
                 executeRequest(msg);
                 sendResponse(msg);
-                updateStatus();
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -84,18 +80,6 @@ public class DroneSimulator {
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-    // triggers event, causing drone state publisher
-    // to notify observers and update info
-    private void updateStatus() {
-        simPublisher.updatePublisherState(simState.getDroneState());
-        try {
-            simPublisher.notifyObservers();
-        }
-        catch (Exception e) {
-            System.out.println("ERROR: DroneSimulator - updateStatus - " + e.getMessage());
         }
     }
 }

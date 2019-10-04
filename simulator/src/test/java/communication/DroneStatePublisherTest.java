@@ -9,9 +9,8 @@ public class DroneStatePublisherTest {
 
     @Test
     public void testUnsubscribe() throws Exception {
-        DroneConnection conn = new DroneConnection();
         DroneObserver obs = new DroneObserver();
-        DroneStatePublisher pub = new DroneStatePublisher(conn);
+        DroneStatePublisher pub = new DroneStatePublisher();
 
         pub.subscribeNewObserver(obs);
         int len = pub.getObserverCount();
@@ -30,7 +29,7 @@ public class DroneStatePublisherTest {
         conn.setLocalIP("127.0.0.1");
         conn.setLocalPort("5005");
         listener.setLocalPort(conn.getLocalPort());
-        DroneStatePublisher pub = new DroneStatePublisher(conn);
+        DroneStatePublisher pub = new DroneStatePublisher();
         pub.subscribeNewObserver(obs);
         listener.setLocalPort(conn.getLocalPort());
         listener.setLocalIP(conn.getLocalIP());
@@ -40,11 +39,12 @@ public class DroneStatePublisherTest {
 
     @Test
     public void subscribeNewObserver() throws Exception {
-        DroneConnection conn = new DroneConnection();
         DroneObserver obs = new DroneObserver();
-        DroneStatePublisher pub = new DroneStatePublisher(conn);
+        DroneStatePublisher pub = new DroneStatePublisher();
 
         pub.subscribeNewObserver(obs);
         int len = pub.getObserverCount();
+
+        assertEquals(1, len);
     }
 }
