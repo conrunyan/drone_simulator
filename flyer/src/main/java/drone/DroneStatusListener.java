@@ -28,7 +28,7 @@ public class DroneStatusListener implements Runnable {
         while (this.listening) {
             Message msg = this.statusConnection.listenForMessage();
             if (msg.getMessageType().equals("status")) {
-                System.out.println("Updating status...: " + msg.getMessageText());
+//                System.out.println("Updating status...: " + msg.getMessageText());
                 this.flyerState.updateState((Status)msg);
             }
         }

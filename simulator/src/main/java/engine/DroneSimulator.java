@@ -19,6 +19,7 @@ public class DroneSimulator {
             simConnection = new DroneConnection(port);
             simConnection.setLocalIP(simIPAddr);
             simConnection.setLocalPort(port.toString());
+            simConnection.setVerboseOutput(true);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -62,6 +63,7 @@ public class DroneSimulator {
             tmpConn = new DroneConnection();
             tmpConn.setRemoteIP(msg.getRemoteIPAddr());
             tmpConn.setRemotePort(msg.getRemotePort());
+            tmpConn.setVerboseOutput(true);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

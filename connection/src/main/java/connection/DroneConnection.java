@@ -15,22 +15,26 @@ public class DroneConnection {
     private InetAddress localConnIP;
     private Boolean isConnected;
     private DatagramSocket udpClient;
+    private Boolean verboseOutput;
     final private int MAX_NUM_OF_RETRIES = 3;
 
     public DroneConnection() throws Exception{
-        localPort = "N/A";
-        localIP = "N/A";
-        isConnected = false;
+        init();
         udpClient = new DatagramSocket(0);
         udpClient.setSoTimeout(1000);
     }
 
     public DroneConnection(int listenPort) throws Exception{
-        localPort = "N/A";
-        localIP = "N/A";
-        isConnected = false;
+        init();
         udpClient = new DatagramSocket(listenPort);
 //        udpClient.setSoTimeout(1000);
+    }
+
+    private void init() {
+        localPort = "N/A";
+        localIP = "N/A";
+        verboseOutput = false;
+        isConnected = false;
     }
 
     // class public methods
@@ -64,7 +68,13 @@ public class DroneConnection {
         bytesToSend = message.encode();
         datagramPacket = new DatagramPacket(bytesToSend, bytesToSend.length, this.remoteConnIP, this.remoteConnPort);
         udpClient.send(datagramPacket);
-		System.out.println("Sent " + message + " message to " + this.remoteConnIP.toString() + ":" + this.remoteConnPort);
+        printDebuggingMessage("Sent " + message + " message to " + this.remoteConnIP.toString() + ":" + this.remoteConnPort);
+    }
+
+    private void printDebuggingMessage(String message) {
+        if (verboseOutput) {
+            System.out.println(message);
+        }
     }
 
     public Message listenForMessage() throws Exception{
@@ -83,11 +93,11 @@ public class DroneConnection {
             datagramPacket = null;
         }
         if (datagramPacket != null) {
-			System.out.println(String.format("Received %d bytes", datagramPacket.getLength()));
+            printDebuggingMessage(String.format("Received %d bytes", datagramPacket.getLength()));
             reply = Message.decode(bytesReceived, 0, bytesReceived.length);
             reply.setRemotePort(datagramPacket.getPort());
             reply.setRemoteIPAddr(datagramPacket.getAddress());
-			System.out.println("Messaged received: " + reply);
+            printDebuggingMessage("Messaged received: " + reply);
         }
         return reply;
     }
@@ -117,6 +127,10 @@ public class DroneConnection {
     }
     public boolean getConnectionStatus() {
         return isConnected;
+    }
+
+    public void setVerboseOutput(boolean verboseStatus) {
+        this.verboseOutput = verboseStatus;
     }
 
     public void setRemotePort(int remotePort) {
