@@ -127,7 +127,7 @@ public class DroneActionHandlerTest {
         double expectedXAfterRFlip = state.getPositionX() + 10;
         state.setInCommandMode(true);
         state.setHasTakenOff(true);
-        state.set
+//        state.set
     }
 
     @Test

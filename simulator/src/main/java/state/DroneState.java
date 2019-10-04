@@ -271,7 +271,7 @@ public class DroneState {
         speedY = 0;
         speedZ = 0;
         lowTemperature = 0;
-        highTemperature = 0;
+        highTemperature = 75;
         flightDistance = 0;
         height = 0;
         batteryPercentage = 100;
