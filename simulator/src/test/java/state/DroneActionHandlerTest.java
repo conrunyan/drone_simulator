@@ -124,10 +124,20 @@ public class DroneActionHandlerTest {
     @Test
     public void testHandleFlipWithLowBattery() {
         DroneState state = new DroneState();
-        double expectedXAfterRFlip = state.getPositionX() + 10;
+        double expectedXAfterRFlipLowBattery = state.getPositionX() + 10;
+        double expectedZAfterFlipLowBatter = state.getPositionZ();
+        int numTimesToLoopUntilBatteryIsLow = 80;
         state.setInCommandMode(true);
         state.setHasTakenOff(true);
-//        state.set
+
+        for (int i = 0; i < numTimesToLoopUntilBatteryIsLow; i++) {
+            state.rotate(0);
+        }
+
+        state = DroneActionHandler.handleFlip(state, "r");
+
+        assertEquals(expectedXAfterRFlipLowBattery, state.getPositionX(), 0.01);
+        assertEquals(expectedZAfterFlipLowBatter, state.getPositionZ(), 0.01);
     }
 
     @Test

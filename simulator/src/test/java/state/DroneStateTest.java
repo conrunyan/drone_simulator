@@ -33,7 +33,7 @@ public class DroneStateTest {
         state.setHasTakenOff(true);
 
         for (int i = 0; i < numTimesToLoopUntilBatteryIsLow; i++) {
-            state.drainBattery();
+            state.rotate(1);
         }
 
         assertTrue(state.lowBattery());

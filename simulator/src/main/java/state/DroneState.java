@@ -64,6 +64,7 @@ public class DroneState {
         this.accelerationY = stateToCopy.getAccelerationY();
         this.accelerationZ = stateToCopy.getAccelerationZ();
         this.orientation = stateToCopy.getOrientation();
+        this.batteryDrainDelta = stateToCopy.getBatteryDrainDelta();
     }
 
     public boolean isInCommandMode() { return inCommandMode; }
@@ -244,6 +245,8 @@ public class DroneState {
     }
 
     public Integer getOrientation() { return orientation; }
+
+    public Integer getBatteryDrainDelta() { return batteryDrainDelta; }
 
     void drainBattery() {
         batteryPercentage -= batteryDrainDelta;
