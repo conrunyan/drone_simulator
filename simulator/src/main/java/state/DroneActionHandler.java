@@ -39,6 +39,10 @@ public abstract class DroneActionHandler {
          DroneState newState = new DroneState(state);
          String stdDistance = "10";
 
+         // only move up if the battery is not low
+         if (!state.lowBattery()) {
+            state = handleMoveUp(state, stdDistance);
+         }
          if (direction.equals("l")) {
              newState = handleMoveLeft(state, stdDistance);
          }

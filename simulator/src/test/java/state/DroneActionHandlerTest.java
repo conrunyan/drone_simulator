@@ -99,20 +99,35 @@ public class DroneActionHandlerTest {
         double expectedXAfterLFlip = state.getPositionX() - 10;
         double expectedXAfterFFlip = state.getPositionY() + 10;
         double expectedXAfterBFlip = state.getPositionY() - 10;
+        double expectedZAfterFlipSuccess = state.getPositionZ() + 10;
         state.setInCommandMode(true);
         state.setHasTakenOff(true);
 
         DroneState newState = DroneActionHandler.handleFlip(state, "r");
         assertEquals(expectedXAfterRFlip, newState.getPositionX(), .01);
+        assertEquals(expectedZAfterFlipSuccess, newState.getPositionZ(), .01);
 
         newState = DroneActionHandler.handleFlip(state, "l");
         assertEquals(expectedXAfterLFlip, newState.getPositionX(), .01);
+        assertEquals(expectedZAfterFlipSuccess, newState.getPositionZ(), .01);
 
         newState = DroneActionHandler.handleFlip(state, "f");
         assertEquals(expectedXAfterFFlip, newState.getPositionY(), .01);
+        assertEquals(expectedZAfterFlipSuccess, newState.getPositionZ(), .01);
 
         newState = DroneActionHandler.handleFlip(state, "b");
         assertEquals(expectedXAfterBFlip, newState.getPositionY(), .01);
+        assertEquals(expectedZAfterFlipSuccess, newState.getPositionZ(), .01);
+
+    }
+
+    @Test
+    public void testHandleFlipWithLowBattery() {
+        DroneState state = new DroneState();
+        double expectedXAfterRFlip = state.getPositionX() + 10;
+        state.setInCommandMode(true);
+        state.setHasTakenOff(true);
+        state.set
     }
 
     @Test

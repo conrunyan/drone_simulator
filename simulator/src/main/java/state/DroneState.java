@@ -32,6 +32,7 @@ public class DroneState {
     private Double accelerationY;
     private Double accelerationZ;
     private Integer orientation;
+    private Integer batteryDrainDelta;
 
     public DroneState() {
         resetState();
@@ -136,6 +137,7 @@ public class DroneState {
         this.positionZ = status.getPositionZ();
         this.orientation = status.getOrientation();
 
+        drainBattery();
 
         this.stateTimestamp = new Date();
     }
@@ -154,6 +156,7 @@ public class DroneState {
         positionX += rotatedX;
         positionY += rotatedY;
         positionZ += deltaZ;
+        drainBattery();
     }
 
     public void rotate(int deltaOrientation) {
@@ -161,6 +164,7 @@ public class DroneState {
 
         orientation += deltaOrientation;
         orientation = orientation % 360;
+        drainBattery();
     }
 
     public Double getPositionX() {
@@ -241,6 +245,13 @@ public class DroneState {
 
     public Integer getOrientation() { return orientation; }
 
+    void drainBattery() {
+        batteryPercentage -= batteryDrainDelta;
+        if (batteryPercentage < 0) {
+            batteryPercentage = 0;
+        }
+    }
+
     private void resetState() {
         videoStreamOn = false;
         hasTakenOff = false;
@@ -263,13 +274,14 @@ public class DroneState {
         highTemperature = 0;
         flightDistance = 0;
         height = 0;
-        batteryPercentage = 0;
+        batteryPercentage = 100;
         barometerMeasurement = 0.0;
         motorTime = 0;
         accelerationX = 0.0;
         accelerationY = 0.0;
         accelerationZ = 0.0;
         orientation = 0;
+        batteryDrainDelta = 1;
     }
 }
 
