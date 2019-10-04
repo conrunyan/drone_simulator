@@ -25,7 +25,6 @@ public class DroneStatusListener implements Runnable {
 
     private void listenForDroneUpdates() throws Exception {
 
-        System.out.println("In drone state listener...");
         while (this.listening) {
             Message msg = this.statusConnection.listenForMessage();
             if (msg.getMessageType().equals("status")) {
@@ -43,5 +42,9 @@ public class DroneStatusListener implements Runnable {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void stop() {
+        this.listening = false;
     }
 }

@@ -12,8 +12,13 @@ public class Main {
         DroneFlyerState flyerState = DroneFlyerState.getInstance();
         Menu menu = new Menu(testDrone);
 
+        Thread t = new Thread(droneListener, "drone_listener");
+        t.start();
+
         while (menu.getRunMenu()) {
             menu.menuCycle();
         }
+        
+        t.interrupt();
     }
 }

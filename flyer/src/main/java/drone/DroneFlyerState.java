@@ -23,6 +23,7 @@ public class DroneFlyerState {
     }
 
     public void updateState(Status status) {
+        System.out.println("UPDATING FLYER STATUS!");
         flyerState.updateFlyingInfo(status);
     }
 
