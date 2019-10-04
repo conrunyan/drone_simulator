@@ -5,13 +5,12 @@ import messages.Status;
 import missions.*;
 import connection.DroneConnection;
 import state.DroneState;
+import java.util.HashMap;
 
 public class Drone {
 
-	private MissionOne missOne;
-	private MissionTwo missTwo;
-	private MissionThree missThree;
 	private DroneConnection connection;
+	private HashMap<Integer, Mission> droneMissions;
 	private DroneFlyerState state;
 
 	public Drone() throws Exception {
@@ -20,9 +19,10 @@ public class Drone {
 
 	private void initDrone() throws Exception {
 		this.connection = new DroneConnection();
-		this.missOne = new MissionOne();
-		this.missTwo = new MissionTwo();
-		this.missThree = new MissionThree();
+		this.droneMissions = new HashMap<>();
+		this.droneMissions.put(1, new MissionOne());
+		this.droneMissions.put(2, new MissionTwo());
+		this.droneMissions.put(3, new MissionThree());
 		state = DroneFlyerState.getInstance();
 	}
 
@@ -42,22 +42,11 @@ public class Drone {
 		// can't execute mission unless drone is connected
 		if (getConnectionStatus()) {
 			System.out.println("Executing mission: " + missionID);
-			switch (missionID) {
-				case 1 : {
-					this.missOne.executeMission(this.connection);
-					break;
-				}
-				case 2 : {
-					this.missTwo.executeMission(this.connection);
-					break;
-				}
-				case 3 : {
-					this.missThree.executeMission(this.connection);
-					break;
-				}
-				default : {
-					System.out.println("WARNING: '" + missionID + "' is not a valid mission.");
-				}
+			if (this.droneMissions.containsKey(missionID)) {
+				this.droneMissions.get(missionID).executeMission(this.connection);
+			}
+			else {
+				System.out.println("WARNING: '" + missionID + "' is not a valid mission.");
 			}
 		}
 		else {
