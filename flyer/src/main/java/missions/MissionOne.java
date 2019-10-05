@@ -27,7 +27,7 @@ public class MissionOne extends Mission {
 
 	public void executeSubMission(DroneConnection droneConnection) throws Exception{
 		for (FlightBehavior fb : this.flightBehaviors) {
-			System.out.println("\tExecuting flight pattern: " + fb.flyInDirection());
+			System.out.println("\tExecuting flight behavior: " + fb.flyInDirection());
 			// Should test this with a dummy drone connection that receives the flight behavior and returns a message
 			droneConnection.communicateWithDrone(fb.flyInDirection());
 			try {

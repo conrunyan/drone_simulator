@@ -13,6 +13,7 @@ public class MissionTwo extends Mission {
 		flightBehaviors = new FlightBehavior[] {
 				new FlyBackward(100),
 				new FlyLeft(100),
+				new FlyWaitForUserInput(),
 				new FlyForward(100),
 				new FlyRight(100),
 		};
@@ -25,7 +26,7 @@ public class MissionTwo extends Mission {
 
 	public void executeSubMission(DroneConnection droneConnection) throws Exception{
 		for (FlightBehavior fb : this.flightBehaviors) {
-			System.out.println("\tExecuting flight pattern: " + fb.flyInDirection());
+			System.out.println("\tExecuting flight behavior: " + fb.flyInDirection());
 			droneConnection.communicateWithDrone(fb.flyInDirection());
 			try {
 				Thread.sleep(this.timeBetweenCommands);
