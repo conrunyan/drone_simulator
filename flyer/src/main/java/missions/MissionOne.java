@@ -17,6 +17,7 @@ public class MissionOne extends Mission {
 			new FlyRight(100),
 			new FlyLeft(100),
 			new FlyFlip("b"),
+			new FlyPrintSpecialMessage("WOO HOO! Time to land now! (This is a special message for mission one)"),
 		};
 		timeBetweenCommands = 3000;
 	}
