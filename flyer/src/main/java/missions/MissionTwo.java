@@ -13,7 +13,7 @@ public class MissionTwo extends Mission {
 		flightBehaviors = new FlightBehavior[] {
 				new FlyBackward(100),
 				new FlyLeft(100),
-				new FlyWaitForUserInput(),
+//				new FlyWaitForUserInput(),
 				new FlyForward(100),
 				new FlyRight(100),
 		};
