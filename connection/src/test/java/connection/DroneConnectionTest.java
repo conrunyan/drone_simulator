@@ -110,4 +110,29 @@ public class DroneConnectionTest {
         assertEquals("error", result.getMessageText());
     }
 
+    @Test
+    public void getMaxNumOfRetries() throws Exception {
+        DroneConnection testDrone = new DroneConnection();
+        Integer expected = 3;
+        Integer expected2 = 200000;
+
+        assertEquals(expected, testDrone.getMaxNumOfRetries());
+
+        testDrone.setMaxNumOfRetries(expected2);
+        assertEquals(expected2, testDrone.getMaxNumOfRetries());
+    }
+
+
+    @Test
+    public void getSocketTimeout() throws Exception {
+        DroneConnection testDrone = new DroneConnection();
+        Integer expected = 1000;
+        Integer expected2 = 200000;
+
+        assertEquals(expected, testDrone.getSocketTimeout());
+
+        testDrone.setSocketTimeout(expected2);
+        assertEquals(expected2, testDrone.getSocketTimeout());
+
+    }
 }

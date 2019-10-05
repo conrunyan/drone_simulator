@@ -59,7 +59,7 @@ public class DroneStateHandlerTest {
         state = DroneStateHandler.handleMessage(go, state);
         assertEquals(0, state.getPositionX(), 0.01);
         assertEquals(20, state.getPositionY(), 0.01);
-        assertEquals(0, state.getPositionZ(), 0.01);
+        assertEquals(10, state.getPositionZ(), 0.01);
 
         state = DroneStateHandler.handleMessage(land, state);
         assertFalse(state.hasTakenOff());

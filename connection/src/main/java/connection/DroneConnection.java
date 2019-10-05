@@ -16,12 +16,13 @@ public class DroneConnection {
     private Boolean isConnected;
     private DatagramSocket udpClient;
     private Boolean verboseOutput;
-    final private int MAX_NUM_OF_RETRIES = 3;
+    private Integer maxNumOfRetries = 3;
+    private Integer socketTimeout;
 
     public DroneConnection() throws Exception{
         init();
         udpClient = new DatagramSocket(0);
-        udpClient.setSoTimeout(1000);
+        udpClient.setSoTimeout(socketTimeout);
     }
 
     public DroneConnection(int listenPort) throws Exception{
@@ -35,6 +36,7 @@ public class DroneConnection {
         localIP = "N/A";
         verboseOutput = false;
         isConnected = false;
+        socketTimeout = 1000;
     }
 
     // class public methods
@@ -44,7 +46,7 @@ public class DroneConnection {
         int tries = 0;
         Message reply = Message.decode("error".getBytes(), 0, "error".length());
         // can't send messages unless the drone is connected
-            while (tries < this.MAX_NUM_OF_RETRIES) {
+            while (tries < this.maxNumOfRetries) {
                 sendMessage(message);
                 reply = listenForMessage();
 
@@ -129,6 +131,14 @@ public class DroneConnection {
         return isConnected;
     }
 
+    public Integer getMaxNumOfRetries() {
+        return this.maxNumOfRetries;
+    }
+
+    public Integer getSocketTimeout() {
+        return this.socketTimeout;
+    }
+
     public void setVerboseOutput(boolean verboseStatus) {
         this.verboseOutput = verboseStatus;
     }
@@ -153,6 +163,20 @@ public class DroneConnection {
     public void setLocalIP(String localIP) throws Exception {
         this.localIP = localIP;
         this.localConnIP = parseIPAddress(localIP);
+    }
+
+    public void setMaxNumOfRetries(Integer maxRetries) {
+        this.maxNumOfRetries = maxRetries;
+    }
+
+    public void setSocketTimeout(Integer timeout) {
+        this.socketTimeout = timeout;
+        try {
+            this.udpClient.setSoTimeout(this.socketTimeout);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 

@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class DroneSimulatorTest {
 
     @Test
-    public void testExecuteRequest() throws Exception{
+    public void testExecuteRequest() throws Exception {
         DroneSimulator sim = new DroneSimulator(6000);
         DroneState tmpState = sim.getSimState();
         Message msg = Message.decode("command".getBytes(), 0, "command".length());
@@ -20,17 +20,6 @@ public class DroneSimulatorTest {
         sim.executeRequest(msg);
 
         assertTrue(sim.getSimState().isInCommandMode());
-    }
-
-    @Test
-    public void testExecuteRequestBad() throws Exception {
-        DroneSimulator sim = new DroneSimulator(6001);
-        DroneState tmpState = sim.getSimState();
-        Message msg = Message.decode("commandBAD".getBytes(), 0, "commandBAD".length());
-
-        sim.executeRequest(msg);
-
-        assertFalse(sim.getSimState().isInCommandMode());
     }
 
     @Test

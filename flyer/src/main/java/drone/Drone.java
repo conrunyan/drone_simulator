@@ -64,6 +64,14 @@ public class Drone {
 		return this.connection.getLocalPort();
 	}
 
+	public void setTimeout(String timeout) {
+		this.connection.setSocketTimeout(Integer.parseInt(timeout));
+	}
+
+	public void setMaxNumberOfRetries(String retries) {
+		this.connection.setMaxNumOfRetries(Integer.parseInt(retries));
+	}
+
 
 	public void setDroneIP(String ipAddr) throws Exception{
 		this.connection.setLocalIP(ipAddr);

@@ -10,7 +10,9 @@ public class Main {
         Drone testDrone = new Drone();
         DroneStatusListener droneListener = new DroneStatusListener(8890);
         DroneFlyerState flyerState = DroneFlyerState.getInstance();
-        Menu menu = new Menu(testDrone);
+        String file = "droneConfig.properties";
+        System.out.println(System.getProperty("user.dir"));
+        Menu menu = new Menu(testDrone, file);
 
         Thread t = new Thread(droneListener, "drone_listener");
         t.start();
